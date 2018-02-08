@@ -6,6 +6,8 @@ struct IFlyBehavior
 {
 	virtual ~IFlyBehavior() {};
 	virtual void Fly() = 0;
+protected:
+	int m_flyCounter = 0;
 };
 
 class FlyWithWings : public IFlyBehavior
@@ -13,7 +15,8 @@ class FlyWithWings : public IFlyBehavior
 public:
 	void Fly() override
 	{
-		cout << "I'm flying with wings!" << endl;
+		++m_flyCounter;
+		cout << "I'm flying with wings! Flight counts: " << m_flyCounter << endl;
 	}
 };
 class FlyWithRocketEngine : public IFlyBehavior
@@ -21,7 +24,8 @@ class FlyWithRocketEngine : public IFlyBehavior
 public:
 	void Fly() override
 	{
-		cout << "I'm flying with rocket engine!" << endl;
+		++m_flyCounter;
+		cout << "I'm flying with rocket engine! Flight counts: " << m_flyCounter << endl;
 	}
 };
 
@@ -242,6 +246,7 @@ void main()
 	PlayWithDuck(modelDuck);
 
 	modelDuck.SetFlyBehavior(make_unique<FlyWithRocketEngine>());
+	PlayWithDuck(modelDuck);
 	PlayWithDuck(modelDuck);
 
 	modelDuck.SetFlyBehavior(make_unique<FlyNoWay>());
