@@ -6,8 +6,6 @@ struct IFlyBehavior
 {
 	virtual ~IFlyBehavior() {};
 	virtual void Fly() = 0;
-protected:
-	int m_flyCounter = 0;
 };
 
 class FlyWithWings : public IFlyBehavior
@@ -18,6 +16,8 @@ public:
 		++m_flyCounter;
 		cout << "I'm flying with wings! Flight counts: " << m_flyCounter << endl;
 	}
+private:
+	int m_flyCounter = 0;
 };
 class FlyWithRocketEngine : public IFlyBehavior
 {
@@ -27,6 +27,7 @@ public:
 		++m_flyCounter;
 		cout << "I'm flying with rocket engine! Flight counts: " << m_flyCounter << endl;
 	}
+	int m_flyCounter = 0;
 };
 
 class FlyNoWay : public IFlyBehavior
