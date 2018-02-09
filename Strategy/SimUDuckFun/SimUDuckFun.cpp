@@ -38,21 +38,19 @@ namespace FlyBehavior
 
 	FlyBehaviorFun FlyWithWings()
 	{
-		shared_ptr<int> m_flyCounter = make_shared<int>(0);
-		return [m_flyCounter]()
+		return [flyCounter = 0]() mutable
 		{
-			++(*m_flyCounter);
-			cout << "I'm flying with wings! Flight counts: " << *m_flyCounter << endl;
+			++(flyCounter);
+			cout << "I'm flying with wings! Flight counts: " << flyCounter << endl;
 		};
 	}
 
 	FlyBehaviorFun FlyWithRocketEngine()
 	{
-		shared_ptr<int> m_flyCounter = make_shared<int>(0);
-		return [m_flyCounter]()
+		return[flyCounter = 0]() mutable
 		{
-			++(*m_flyCounter);
-			cout << "I'm flying with rocket engine! Flight counts: " << *m_flyCounter << endl;
+			++(flyCounter);
+			cout << "I'm flying with rocket engine! Flight counts: " << flyCounter << endl;
 		};
 	}
 }
