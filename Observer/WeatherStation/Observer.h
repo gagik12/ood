@@ -23,7 +23,7 @@ class IObservable
 {
 public:
 	virtual ~IObservable() = default;
-	virtual void RegisterObserver(IObserver<T> & observer) = 0;
+	virtual void RegisterObserver(IObserver<T> & observer, int priority) = 0;
 	virtual void NotifyObservers() = 0;
 	virtual void RemoveObserver(IObserver<T> & observer) = 0;
 };
@@ -35,23 +35,31 @@ class CObservable : public IObservable<T>
 public:
 	typedef IObserver<T> ObserverType;
 
-	void RegisterObserver(ObserverType & observer) override
+	void RegisterObserver(ObserverType & observer, int priority) override
 	{
-		m_observers.insert(&observer);
+		m_observersMap.insert(std::make_pair(priority, &observer));
 	}
 
 	void NotifyObservers() override
 	{
 		T data = GetChangedData();
-		for (auto & observer : m_observers)
+		for(auto it = m_observersMap.rbegin(); it != m_observersMap.rend(); ++it)
 		{
+			auto observer = it->second;
 			observer->Update(data);
 		}
 	}
 
 	void RemoveObserver(ObserverType & observer) override
 	{
-		m_observers.erase(&observer);
+		auto it = std::find_if(m_observersMap.begin(), m_observersMap.end(), [&](std::pair<int, ObserverType *> const& observerPair) {
+			return observerPair.second == &observer;
+		});
+
+		if (it != m_observersMap.end())
+		{
+			m_observersMap.erase(it);
+		}
 	}
 
 protected:
@@ -60,5 +68,5 @@ protected:
 	virtual T GetChangedData()const = 0;
 
 private:
-	std::set<ObserverType *> m_observers;
+	std::map<int, ObserverType *> m_observersMap;
 };
