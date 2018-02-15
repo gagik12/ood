@@ -69,5 +69,5 @@ protected:
 	virtual T GetChangedData()const = 0;
 
 private:
-	std::map<int, ObserverType *> m_observersMap;
+	std::multimap<int, ObserverType *> m_observersMap;
 };
