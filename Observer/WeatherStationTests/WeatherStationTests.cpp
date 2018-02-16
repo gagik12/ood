@@ -91,6 +91,7 @@ namespace TestSafeNotificationObservers
 	private:
 		void Update(SWeatherInfo const& data) override
 		{
+			//отписаться от уведомлений
 			m_Observable.RemoveObserver(*this);
 			m_stream << "Removed CTestStatsDisplay\n";
 		}
@@ -113,5 +114,11 @@ BOOST_AUTO_TEST_SUITE(task_2)
 		wd.RegisterObserver(testStatsDisplay, 1);
 		wd.SetMeasurements(3, 0.7, 760);
 		BOOST_CHECK(stream.is_equal("Removed CTestDisplay\nRemoved CTestStatsDisplay\n"));
+
+		//
+		stream.clear();
+		wd.SetMeasurements(3, 0.7, 760);
+		BOOST_CHECK(stream.is_equal(""));
+
 	}
 BOOST_AUTO_TEST_SUITE_END()
