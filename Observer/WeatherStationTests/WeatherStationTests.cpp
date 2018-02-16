@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "../WeatherStation/Observer.h"
 #include "../WeatherStation/WeatherData.h"
 
@@ -73,6 +73,7 @@ namespace TestSafeNotificationObservers
 	private:
 		void Update(SWeatherInfo const& data) override
 		{
+			//отписаться от уведомлений
 			m_Observable.RemoveObserver(*this);
 			m_stream << "Removed CTestDisplay\n";
 		}
@@ -91,7 +92,7 @@ namespace TestSafeNotificationObservers
 	private:
 		void Update(SWeatherInfo const& data) override
 		{
-			//���������� �� �����������
+			//отписаться от уведомлений
 			m_Observable.RemoveObserver(*this);
 			m_stream << "Removed CTestStatsDisplay\n";
 		}
@@ -115,9 +116,9 @@ BOOST_AUTO_TEST_SUITE(task_2)
 		wd.SetMeasurements(3, 0.7, 760);
 		BOOST_CHECK(stream.is_equal("Removed CTestDisplay\nRemoved CTestStatsDisplay\n"));
 
-		//
 		stream.clear();
 		wd.SetMeasurements(3, 0.7, 760);
+		//так как наблюдатели сами отписались от издателя то stream == ""
 		BOOST_CHECK(stream.is_equal(""));
 
 	}
