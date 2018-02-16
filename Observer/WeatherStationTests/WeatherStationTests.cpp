@@ -66,38 +66,38 @@ namespace TestSafeNotificationObservers
 	class CTestDisplay : public IObserver<SWeatherInfo>
 	{
 	public:
-		CTestDisplay(boost::test_tools::output_test_stream & stream, CObservable<SWeatherInfo> & Observable)
+		CTestDisplay(boost::test_tools::output_test_stream & stream, CObservable<SWeatherInfo> & observable)
 			: m_stream(stream)
-			, m_Observable(Observable)
+			, m_observable(observable)
 		{}
 	private:
 		void Update(SWeatherInfo const& data) override
 		{
 			//отписаться от уведомлений
-			m_Observable.RemoveObserver(*this);
+			m_observable.RemoveObserver(*this);
 			m_stream << "Removed CTestDisplay\n";
 		}
 
 		boost::test_tools::output_test_stream & m_stream;
-		CObservable<SWeatherInfo> & m_Observable;
+		CObservable<SWeatherInfo> & m_observable;
 	};
 
 	class CTestStatsDisplay : public IObserver<SWeatherInfo>
 	{
 	public:
-		CTestStatsDisplay(boost::test_tools::output_test_stream & stream, CObservable<SWeatherInfo> & Observable)
+		CTestStatsDisplay(boost::test_tools::output_test_stream & stream, CObservable<SWeatherInfo> & observable)
 			: m_stream(stream)
-			, m_Observable(Observable)
+			, m_observable(observable)
 		{}
 	private:
 		void Update(SWeatherInfo const& data) override
 		{
 			//отписаться от уведомлений
-			m_Observable.RemoveObserver(*this);
+			m_observable.RemoveObserver(*this);
 			m_stream << "Removed CTestStatsDisplay\n";
 		}
 		boost::test_tools::output_test_stream & m_stream;
-		CObservable<SWeatherInfo> & m_Observable;
+		CObservable<SWeatherInfo> & m_observable;
 	};
 }
 
