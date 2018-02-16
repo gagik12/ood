@@ -37,7 +37,14 @@ public:
 
 	void RegisterObserver(ObserverType & observer, int priority) override
 	{
-		m_observersMap.insert(std::make_pair(priority, &observer));
+		auto it = std::find_if(m_observersMap.begin(), m_observersMap.end(), [&](std::pair<int, ObserverType *> const& observerPair) {
+			return observerPair.second == &observer;
+		});
+
+		if (it == m_observersMap.end())
+		{
+			m_observersMap.insert(std::make_pair(priority, &observer));
+		}
 	}
 
 	void NotifyObservers() override
