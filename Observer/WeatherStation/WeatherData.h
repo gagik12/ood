@@ -26,8 +26,53 @@ private:
 	}
 };
 
+class CWeatherStatistic
+{
+public:
+	CWeatherStatistic(std::string weatherStatisticName)
+		: m_weatherStatisticName(weatherStatisticName)
+	{
+	}
+
+	void Update(double value)
+	{
+		if (m_minValue > value)
+		{
+			m_minValue = value;
+		}
+		if (m_maxValue < value)
+		{
+			m_maxValue = value;
+		}
+		m_accValue += value;
+		++m_countAcc;
+	}
+
+	void Print() const
+	{
+		std::cout << "Max " << m_weatherStatisticName << " " << m_maxValue << std::endl;
+		std::cout << "Min " << m_weatherStatisticName << " " << m_minValue << std::endl;
+		std::cout << "Average " << m_weatherStatisticName << " " << (m_accValue / m_countAcc) << std::endl;
+		std::cout << "----------------" << std::endl;
+	}
+private:
+	std::string m_weatherStatisticName;
+	double m_minValue = std::numeric_limits<double>::infinity();
+	double m_maxValue = -std::numeric_limits<double>::infinity();
+	double m_accValue = 0;
+	unsigned m_countAcc = 0;
+};
+
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
+public:
+	CStatsDisplay()
+		: m_temperatureStatistic(CWeatherStatistic("Temperature"))
+		, m_humidityStatistic(CWeatherStatistic("Humidity"))
+		, m_pressureStatistic(CWeatherStatistic("Pressure"))
+	{
+	}
+
 private:
 	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую
 	Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
@@ -35,28 +80,27 @@ private:
 	*/
 	void Update(SWeatherInfo const& data) override
 	{
-		if (m_minTemperature > data.temperature)
-		{
-			m_minTemperature = data.temperature;
-		}
-		if (m_maxTemperature < data.temperature)
-		{
-			m_maxTemperature = data.temperature;
-		}
-		m_accTemperature += data.temperature;
-		++m_countAcc;
-
-		std::cout << "Max Temp " << m_maxTemperature << std::endl;
-		std::cout << "Min Temp " << m_minTemperature << std::endl;
-		std::cout << "Average Temp " << (m_accTemperature / m_countAcc) << std::endl;
-		std::cout << "----------------" << std::endl;
+		UpdateWeatherStatistics(data);
+		PrintWeatherStatistics();
 	}
 
-	double m_minTemperature = std::numeric_limits<double>::infinity();
-	double m_maxTemperature = -std::numeric_limits<double>::infinity();
-	double m_accTemperature = 0;
-	unsigned m_countAcc = 0;
+	void UpdateWeatherStatistics(SWeatherInfo const& data)
+	{
+		m_temperatureStatistic.Update(data.temperature);
+		m_humidityStatistic.Update(data.humidity);
+		m_pressureStatistic.Update(data.pressure);
+	}
 
+	void PrintWeatherStatistics() const
+	{
+		m_temperatureStatistic.Print();
+		m_humidityStatistic.Print();
+		m_pressureStatistic.Print();
+	}
+
+	CWeatherStatistic m_temperatureStatistic;
+	CWeatherStatistic m_humidityStatistic;
+	CWeatherStatistic m_pressureStatistic;
 };
 
 class CWeatherData : public CObservable<SWeatherInfo>

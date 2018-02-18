@@ -10,4 +10,5 @@
 #include <climits>
 #include <set>
 #include <functional>
+#include <string>
 #include <map>
