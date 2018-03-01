@@ -177,3 +177,80 @@ protected:
 private:
 	unsigned m_mass;
 };
+
+// Добавка "Сливки"
+class CCream : public CCondimentDecorator
+{
+public:
+	CCream(IBeveragePtr && beverage)
+		: CCondimentDecorator(move(beverage))
+	{}
+
+protected:
+	double GetCondimentCost()const override
+	{
+		return 25;
+	}
+	std::string GetCondimentDescription()const override
+	{
+		return "Cream";
+	}
+private:
+	unsigned m_mass;
+};
+
+// Шоколадная долька 
+class CChocolateSlice : public CCondimentDecorator
+{
+public:
+	CChocolateSlice(IBeveragePtr && beverage, unsigned quantity)
+		: CCondimentDecorator(move(beverage))
+		, m_quantity(quantity > MAX_SLICE_QUANTITY ? MAX_SLICE_QUANTITY : quantity)
+	{}
+
+protected:
+	double GetCondimentCost()const override
+	{
+		return 10 * m_quantity;
+	}
+	std::string GetCondimentDescription()const override
+	{
+		return "Chocolate slice x " + std::to_string(m_quantity);
+	}
+private:
+	unsigned m_quantity;
+	const unsigned MAX_SLICE_QUANTITY = 5;
+};
+
+enum LiquorType
+{
+	CHOCOLATE,
+	WALNUT
+};
+
+// Ликер
+const std::map<LiquorType, std::string> LEQUOR_TYPE_DESCRIPTION = {
+	{ LiquorType::CHOCOLATE, "Chocolate " },
+	{ LiquorType::WALNUT, "Walnut " },
+};
+
+class CLiquor : public CCondimentDecorator
+{
+public:
+	CLiquor(IBeveragePtr && beverage, LiquorType liquorType)
+		: CCondimentDecorator(move(beverage))
+		, m_liquorType(liquorType)
+	{}
+
+protected:
+	double GetCondimentCost()const override
+	{
+		return 50;
+	}
+	std::string GetCondimentDescription()const override
+	{
+		return LEQUOR_TYPE_DESCRIPTION.at(m_liquorType) + "liquor";
+	}
+private:
+	LiquorType m_liquorType;
+};
