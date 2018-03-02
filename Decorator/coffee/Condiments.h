@@ -12,6 +12,11 @@ public:
 		return m_beverage->GetDescription() + ", " + GetCondimentDescription();
 	}
 
+	void SetDescription(std::string const& description) override final
+	{
+		m_beverage->SetDescription(description);
+	}
+
 	double GetCost()const override
 	{
 		// Стоимость складывается из стоимости добавки и стоимости декорируемого напитка
@@ -222,16 +227,10 @@ private:
 	const unsigned MAX_SLICE_QUANTITY = 5;
 };
 
-enum LiquorType
+enum class LiquorType
 {
 	CHOCOLATE,
 	WALNUT
-};
-
-// Ликер
-const std::map<LiquorType, std::string> LEQUOR_TYPE_DESCRIPTION = {
-	{ LiquorType::CHOCOLATE, "Chocolate " },
-	{ LiquorType::WALNUT, "Walnut " },
 };
 
 class CLiquor : public CCondimentDecorator
@@ -249,8 +248,25 @@ protected:
 	}
 	std::string GetCondimentDescription()const override
 	{
-		return LEQUOR_TYPE_DESCRIPTION.at(m_liquorType) + "liquor";
+		return GetLiquorTypeDescription() + "liquor";
 	}
 private:
 	LiquorType m_liquorType;
+
+	std::string GetLiquorTypeDescription()const
+	{
+		std::string result;
+		switch (m_liquorType)
+		{
+		case LiquorType::CHOCOLATE:
+			result = "Chocolate";
+			break;
+		case LiquorType::WALNUT:
+			result = "Walnut";
+			break;
+		default:
+			break;
+		}
+		return result;
+	}
 };

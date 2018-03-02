@@ -14,32 +14,57 @@ public:
 	{
 		return m_description;
 	}
+
+	void SetDescription(std::string const& description) override final
+	{
+		m_description = description;
+	}
 private:
 	std::string m_description;
 };
 
-enum CoffeePortion
+enum class CoffeePortion
 {
-	STANDART,
+	STANDARTD,
 	DOUBLE,
-};
-
-const std::map<CoffeePortion, std::string> COFFEE_PORTION_DESCRIPTION = {
-	{ CoffeePortion::STANDART, "Standart " },
-	{ CoffeePortion::DOUBLE, "Double " },
 };
 
 // Кофе
 class CCoffee : public CBeverage
 {
 public:
-	CCoffee(const std::string& description = "Coffee")
-		:CBeverage(description) 
+	CCoffee(CoffeePortion coffeePortion = CoffeePortion::STANDARTD, const std::string& description = "Coffee")
+		: CBeverage(GetCoffeePortionDescription() + " " + description)
+		, m_coffeePortion(coffeePortion)
 	{}
 
-	double GetCost() const override 
+	CoffeePortion GetCoffeePortion() const
 	{
-		return 60; 
+		return m_coffeePortion;
+	}
+
+	double GetCost() const override
+	{
+		return 60;
+	}
+private:
+	CoffeePortion m_coffeePortion;
+
+	std::string GetCoffeePortionDescription()const
+	{
+		std::string result;
+		switch (m_coffeePortion)
+		{
+		case CoffeePortion::STANDARTD:
+			result = "Standartd";
+			break;
+		case CoffeePortion::DOUBLE:
+			result = "Double";
+			break;
+		default:
+			break;
+		}
+		return result;
 	}
 };
 
@@ -47,37 +72,31 @@ public:
 class CCapuccino : public CCoffee
 {
 public:
-	CCapuccino(CoffeePortion coffeePortion = CoffeePortion::STANDART)
-		: CCoffee(COFFEE_PORTION_DESCRIPTION.at(coffeePortion) + "Capuccino")
-		, m_capuccinoPortion(coffeePortion)
+	CCapuccino(CoffeePortion coffeePortion = CoffeePortion::STANDARTD)
+		: CCoffee(coffeePortion, "Capuccino")
 	{}
 
 	double GetCost() const override 
 	{
-		return (m_capuccinoPortion == CoffeePortion::STANDART) ? 80 : 120;
+		return (GetCoffeePortion() == CoffeePortion::STANDARTD) ? 80 : 120;
 	}
-private:
-	CoffeePortion m_capuccinoPortion;
 };
 
 // Латте
 class CLatte : public CCoffee
 {
 public:
-	CLatte(CoffeePortion coffeePortion = CoffeePortion::STANDART)
-		: CCoffee(COFFEE_PORTION_DESCRIPTION.at(coffeePortion) + "Latte")
-		, m_lattePortion(coffeePortion)
+	CLatte(CoffeePortion coffeePortion = CoffeePortion::STANDARTD)
+		: CCoffee(coffeePortion, "Latte")
 	{}
 
 	double GetCost() const override 
 	{
-		return (m_lattePortion == CoffeePortion::STANDART) ? 90 : 130;
+		return (GetCoffeePortion() == CoffeePortion::STANDARTD) ? 90 : 130;
 	}
-private:
-	CoffeePortion m_lattePortion;
 };
 
-enum TeaGrade
+enum class TeaGrade
 {
 	GREEN,
 	BLACK,
@@ -85,21 +104,15 @@ enum TeaGrade
 	WHITE
 };
 
-const std::map<TeaGrade, std::string> TEA_GRADE_DESCRIPTION = {
-	{ TeaGrade::GREEN, "Green " },
-	{ TeaGrade::BLACK, "Black " },
-	{ TeaGrade::JASMINE, "Jasmine " },
-	{ TeaGrade::WHITE, "White " },
-};
-
 // Чай
 class CTea : public CBeverage
 {
 public:
 	CTea(TeaGrade teaGrade = TeaGrade::BLACK)
-		: CBeverage(TEA_GRADE_DESCRIPTION.at(teaGrade) + "Tea")
-		, m_teaGrade(teaGrade)
-	{}
+		: CBeverage("Tea")
+	{
+		SetDescription(GetTeaGradeDescription() + " " + GetDescription());
+	}
 
 	double GetCost() const override 
 	{
@@ -107,19 +120,36 @@ public:
 	}
 private:
 	TeaGrade m_teaGrade;
+
+	std::string GetTeaGradeDescription()const
+	{
+		std::string result;
+		switch (m_teaGrade)
+		{
+		case TeaGrade::GREEN:
+			result = "Green";
+			break;
+		case TeaGrade::BLACK:
+			result = "Black";
+			break;
+		case TeaGrade::JASMINE:
+			result = "Jasmine";
+			break;
+		case TeaGrade::WHITE:
+			result = "White";
+			break;
+		default:
+			break;
+		}
+		return result;
+	}
 };
 
-enum MilkshakePortion
+enum class MilkshakePortion
 {
 	SMALL,
 	MIDDLE,
 	BIG
-};
-
-const std::map<MilkshakePortion, std::string> MILKSHAKE_PORTION_DESCRIPTION = {
-	{ MilkshakePortion::SMALL, "Small " },
-	{ MilkshakePortion::MIDDLE, "Middle " },
-	{ MilkshakePortion::BIG, "Big " },
 };
 
 // Молочный коктейль
@@ -127,15 +157,37 @@ class CMilkshake : public CBeverage
 {
 public:
 	CMilkshake(MilkshakePortion milkshakePortion = MilkshakePortion::SMALL)
-		: CBeverage(MILKSHAKE_PORTION_DESCRIPTION.at(milkshakePortion) + "Milkshake")
+		: CBeverage("Milkshake")
 		, m_milkshakePortion(milkshakePortion)
-	{}
+	{
+		SetDescription(GetMilkshakePortionDescription() + " " + GetDescription());
+	}
 
 	double GetCost() const override 
 	{ 
-		static const std::vector<int> COSTS = { 50, 60, 80 };
-		return COSTS[m_milkshakePortion];
+		static const int COSTS[] = { 50, 60, 80 };
+		return COSTS[static_cast<int>(m_milkshakePortion)];
 	}
 private:
 	MilkshakePortion m_milkshakePortion;
+
+	std::string GetMilkshakePortionDescription()const
+	{
+		std::string result;
+		switch (m_milkshakePortion)
+		{
+		case MilkshakePortion::SMALL:
+			result = "Small";
+			break;
+		case MilkshakePortion::MIDDLE:
+			result = "Middle";
+			break;
+		case MilkshakePortion::BIG:
+			result = "Big";
+			break;
+		default:
+			break;
+		}
+		return result;
+	}
 };

@@ -187,7 +187,7 @@ int main()
 				make_unique<CIceCubes>(				// | под нею - кубики льда
 					make_unique<CLemon>(			// | | еще ниже лимон
 						make_unique<CCinnamon>(		// | | | слоем ниже - корица
-							make_unique<CLatte>(CoffeePortion::STANDART)),	// | | |   в самом сердце - Латте
+							make_unique<CLatte>(CoffeePortion::STANDARTD)),	// | | |   в самом сердце - Латте
 						2),							// | | 2 дольки лимона
 					2, IceCubeType::Dry),			// | 2 кубика сухого льда
 				2);									// 2 грамма шоколадной крошки
