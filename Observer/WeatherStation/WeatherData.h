@@ -26,10 +26,10 @@ private:
 	}
 };
 
-class CWeatherStatistic
+class CStatisticCalculator
 {
 public:
-	CWeatherStatistic(std::string weatherStatisticName)
+	CStatisticCalculator(std::string const& weatherStatisticName)
 		: m_weatherStatisticName(weatherStatisticName)
 	{
 	}
@@ -67,9 +67,9 @@ class CStatsDisplay : public IObserver<SWeatherInfo>
 {
 public:
 	CStatsDisplay()
-		: m_temperatureStatistic(CWeatherStatistic("Temperature"))
-		, m_humidityStatistic(CWeatherStatistic("Humidity"))
-		, m_pressureStatistic(CWeatherStatistic("Pressure"))
+		: m_temperatureStatistic(CStatisticCalculator("Temperature"))
+		, m_humidityStatistic(CStatisticCalculator("Humidity"))
+		, m_pressureStatistic(CStatisticCalculator("Pressure"))
 	{
 	}
 
@@ -98,9 +98,9 @@ private:
 		m_pressureStatistic.Print();
 	}
 
-	CWeatherStatistic m_temperatureStatistic;
-	CWeatherStatistic m_humidityStatistic;
-	CWeatherStatistic m_pressureStatistic;
+	CStatisticCalculator m_temperatureStatistic;
+	CStatisticCalculator m_humidityStatistic;
+	CStatisticCalculator m_pressureStatistic;
 };
 
 class CWeatherData : public CObservable<SWeatherInfo>
