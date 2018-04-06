@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Файлы исходного кода">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Заголовочные файлы">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Shape">
+      <UniqueIdentifier>{c68101af-d3ee-4644-a195-4eb3589e0bfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Disigner">
+      <UniqueIdentifier>{32ce3d2c-23e1-477a-bddb-2361b09a215f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Painter">
+      <UniqueIdentifier>{4ed3cc8c-2d73-42f7-9a74-dffbc93b896c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PictureDraft">
+      <UniqueIdentifier>{21bcbcb4-8462-475a-b6b2-13e7187239a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{72ac8948-bf08-4657-a25b-60a077fbf30c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Canvas">
+      <UniqueIdentifier>{3c8a33cb-4bd4-40b7-86bd-01e2487853af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client">
+      <UniqueIdentifier>{58e4f934-ddc9-415e-9128-e7a7782b7701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShapeFactory">
+      <UniqueIdentifier>{9860ff4f-797e-4dba-bd4b-f82376bfdcf1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="PictureDraft.h">
+      <Filter>PictureDraft</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Designer.h">
+      <Filter>Disigner</Filter>
+    </ClInclude>
+    <ClInclude Include="IDesigner.h">
+      <Filter>Disigner</Filter>
+    </ClInclude>
+    <ClInclude Include="Painter.h">
+      <Filter>Painter</Filter>
+    </ClInclude>
+    <ClInclude Include="IPainter.h">
+      <Filter>Painter</Filter>
+    </ClInclude>
+    <ClInclude Include="ICanvas.h">
+      <Filter>Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellipse.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Float.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="RegularPolygon.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorUtil.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="IShapeFactory.h">
+      <Filter>ShapeFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeFactory.h">
+      <Filter>ShapeFactory</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="PictureDraft.cpp">
+      <Filter>PictureDraft</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Designer.cpp">
+      <Filter>Disigner</Filter>
+    </ClCompile>
+    <ClCompile Include="Painter.cpp">
+      <Filter>Painter</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellipse.cpp">
+      <Filter>Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="Float.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="RegularPolygon.cpp">
+      <Filter>Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorUtil.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeFactory.cpp">
+      <Filter>ShapeFactory</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
