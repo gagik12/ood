@@ -18,7 +18,7 @@ void CCanvas::DrawLine(CPoint const& from, CPoint const& to)
 	m_outStream << "Draw line: from [" << from << "] to [" << to << "]" << std::endl;
 }
 
-void CCanvas::DrawEllipse(CPoint const& center, CFloat const& width, CFloat const& height)
+void CCanvas::DrawEllipse(CPoint const& center, float width, float height)
 {
 	std::cout << "Draw ellipse center [" << center << "], Width: " << width << " height: " << height << std::endl;
 }

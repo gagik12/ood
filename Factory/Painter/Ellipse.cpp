@@ -2,7 +2,7 @@
 #include "Ellipse.h"
 
 
-CEllipse::CEllipse(CPoint const& center, CFloat const& horizontalRadius, CFloat const& verticalRadius, Color color)
+CEllipse::CEllipse(CPoint const& center, float horizontalRadius, float verticalRadius, Color color)
 	: CShape(color)
 	, m_center(center)
 	, m_horizontalRadius(horizontalRadius)
@@ -21,12 +21,12 @@ CPoint CEllipse::GetCenter() const
 	return m_center;
 }
 
-CFloat CEllipse::GetHorizontalRadius() const
+float CEllipse::GetHorizontalRadius() const
 {
 	return m_horizontalRadius;
 }
 
-CFloat CEllipse::GetVerticalRadius() const
+float CEllipse::GetVerticalRadius() const
 {
 	return m_verticalRadius;
 }

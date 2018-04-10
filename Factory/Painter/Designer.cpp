@@ -16,7 +16,7 @@ CPictureDraft CDesigner::CreateDraft(std::istream &data)
 	{
 		try
 		{
-			auto shape = m_factory.CreateShape(std::istringstream(line));
+			auto shape = m_factory.CreateShape(line);
 			draft.AddShape(std::move(shape));
 		}
 		catch (std::exception & e)

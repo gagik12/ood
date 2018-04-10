@@ -6,16 +6,16 @@
 class CRegularPolygon : public CShape
 {
 public:
-	CRegularPolygon(CPoint const& center, CFloat const& radius, unsigned vertexCount, Color color);
+	CRegularPolygon(CPoint const& center, float radius, unsigned vertexCount, Color color);
 
 	void Draw(ICanvas& canvas) const override;
 	CPoint GetCenter() const;
-	CFloat GetRadius() const;
+	float GetRadius() const;
 	size_t GetVertexCount() const;
 private:
 	std::vector<CPoint> m_points;
 	CPoint m_center;
-	CFloat m_radius;
+	float m_radius;
 	unsigned m_vertexCount;
 };
 

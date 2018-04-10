@@ -4,10 +4,10 @@
 
 namespace ShapeType
 {
-	std::string const TRIANGLE = "triangle";
-	std::string const ELLIPSE = "ellipse";
-	std::string const RECTANGLE = "rectangle";
-	std::string const POLYGON = "polygon";
+	std::string const TRIANGLE = "Triangle";
+	std::string const ELLIPSE = "Ellipse";
+	std::string const RECTANGLE = "Rectangle";
+	std::string const POLYGON = "RegularPolygon";
 }
 
 class CShape
