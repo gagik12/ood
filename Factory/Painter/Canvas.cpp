@@ -15,11 +15,13 @@ void CCanvas::SetColor(RGBColor const& color)
 
 void CCanvas::DrawLine(CPoint const& from, CPoint const& to)
 {
+	static const GLfloat LINE_WIDTH = 2;
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_LINE_SMOOTH);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-	glLineWidth(2);
+	glLineWidth(LINE_WIDTH);
 	glBegin(GL_LINES);
 		glVertex2f(from.GetX(), from.GetY());
 		glVertex2f(to.GetX(), to.GetY());
@@ -27,7 +29,23 @@ void CCanvas::DrawLine(CPoint const& from, CPoint const& to)
 	glDisable(GL_LINE_SMOOTH);
 }
 
-void CCanvas::DrawEllipse(CPoint const& center, float width, float height)
+//http://www.opennet.ru/docs/RUS/qt3_prog/images/fig8.1.png
+void CCanvas::DrawEllipse(CPoint const& leftTop, float width, float height)
 {
-	std::cout << "Draw ellipse center [" << center << "], Width: " << width << " height: " << height << std::endl;
+	for (float angle = 0; angle <= 360; angle += 0.1f)
+	{
+		CPoint point(leftTop.GetX() + cosf(angle) * width, leftTop.GetY() + sinf(angle) * height);
+		DrawPoint(point);
+	}
+}
+
+void CCanvas::DrawPoint(CPoint const& point) const
+{
+	static const GLfloat POINT_SIZE = 2;
+
+	glPointSize(POINT_SIZE);
+	glBegin(GL_POINTS);
+		glVertex2f(point.GetX(), point.GetY());
+	glEnd();
+	glFlush();
 }

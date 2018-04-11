@@ -12,8 +12,11 @@ CEllipse::CEllipse(CPoint const& center, float horizontalRadius, float verticalR
 
 void CEllipse::Draw(ICanvas & canvas) const
 {
+	float width = 2 * m_horizontalRadius;
+	float height = 2 * m_verticalRadius;
+	CPoint leftTop(m_center.GetX() - m_horizontalRadius, m_center.GetY() - m_verticalRadius);
 	canvas.SetColor(GetColor());
-	canvas.DrawEllipse(m_center, m_horizontalRadius, m_verticalRadius);
+	canvas.DrawEllipse(leftTop, width, height);
 }
 
 CPoint CEllipse::GetCenter() const

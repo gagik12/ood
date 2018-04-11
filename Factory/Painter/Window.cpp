@@ -23,7 +23,6 @@ void CWindow::OnDrawWindow(const glm::ivec2 & size)
 {
 	SetupView(size);
 	m_painter.DrawPicture(m_pictureDraft, *m_canvas);
-	//m_canvas.DrawShapes(shapes);
 }
 
 void CWindow::SetupView(const glm::ivec2 & size)
