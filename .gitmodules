@@ -1,0 +1,9 @@
+[submodule "Factory/Painter/libs/SDL2"]
+	path = Factory/Painter/libs/SDL2
+	url = git@github.com:gagik12/SDL2.git
+[submodule "Factory/Painter/libs/glm"]
+	path = Factory/Painter/libs/glm
+	url = git@github.com:gagik12/glm.git
+[submodule "Factory/Painter/libs/glew"]
+	path = Factory/Painter/libs/glew
+	url = git@github.com:gagik12/glew.git
