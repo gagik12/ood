@@ -32,7 +32,8 @@ ShapePtr CShapeFactory::CreateShape(std::string const& description)
 	auto it = m_shapeCreationMap.find(shapeType);
 	if (it != m_shapeCreationMap.end())
 	{
-		result = it->second(stream, CColorUtil::ToColor(colorStr));
+		std::cout << CColorUtil::ToRGBColor(colorStr).r << std::endl;
+		result = it->second(stream, CColorUtil::ToRGBColor(colorStr));
 	}
 	else
 	{
@@ -43,7 +44,7 @@ ShapePtr CShapeFactory::CreateShape(std::string const& description)
 }
 
 
-ShapePtr CShapeFactory::CreateEllipse(std::istringstream & stream, Color color)
+ShapePtr CShapeFactory::CreateEllipse(std::istringstream & stream, RGBColor const& color)
 {
 	CPoint center;
 	float horizontalRadius;
@@ -58,7 +59,7 @@ ShapePtr CShapeFactory::CreateEllipse(std::istringstream & stream, Color color)
 	return std::make_unique<CEllipse>(center, horizontalRadius, verticalRadius, color);
 }
 
-ShapePtr CShapeFactory::CreatePolygon(std::istringstream & stream, Color color)
+ShapePtr CShapeFactory::CreatePolygon(std::istringstream & stream, RGBColor const& color)
 {
 	CPoint center;
 	float radius;
@@ -73,7 +74,7 @@ ShapePtr CShapeFactory::CreatePolygon(std::istringstream & stream, Color color)
 	return std::make_unique<CRegularPolygon>(center, radius, vertexCount, color);
 }
 
-ShapePtr CShapeFactory::CreateRectangle(std::istringstream & stream, Color color)
+ShapePtr CShapeFactory::CreateRectangle(std::istringstream & stream, RGBColor const& color)
 {
 	CPoint leftTop;
 	CPoint rightBottom;
@@ -84,7 +85,7 @@ ShapePtr CShapeFactory::CreateRectangle(std::istringstream & stream, Color color
 	return std::make_unique<CRectangle>(leftTop, rightBottom, color);
 }
 
-ShapePtr CShapeFactory::CreateTriangle(std::istringstream & stream, Color color)
+ShapePtr CShapeFactory::CreateTriangle(std::istringstream & stream, RGBColor const& color)
 {
 	CPoint point1;
 	CPoint point2;

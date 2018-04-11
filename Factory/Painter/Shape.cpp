@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "Shape.h"
 
-CShape::CShape(Color color)
+CShape::CShape(RGBColor const& color)
 	: m_color(color)
 {
 }
 
-Color CShape::GetColor() const
+RGBColor CShape::GetColor() const
 {
 	return m_color;
 }

@@ -6,7 +6,7 @@
 class CEllipse : public CShape
 {
 public:
-	CEllipse(CPoint const& center, float horizontalRadius, float verticalRadius, Color color);
+	CEllipse(CPoint const& center, float horizontalRadius, float verticalRadius, RGBColor const& color);
 
 	void Draw(ICanvas & canvas) const override;
 	CPoint GetCenter() const;

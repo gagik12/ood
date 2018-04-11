@@ -2,7 +2,7 @@
 #include "Ellipse.h"
 
 
-CEllipse::CEllipse(CPoint const& center, float horizontalRadius, float verticalRadius, Color color)
+CEllipse::CEllipse(CPoint const& center, float horizontalRadius, float verticalRadius, RGBColor const& color)
 	: CShape(color)
 	, m_center(center)
 	, m_horizontalRadius(horizontalRadius)

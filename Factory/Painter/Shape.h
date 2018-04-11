@@ -13,11 +13,11 @@ namespace ShapeType
 class CShape
 {
 public:
-	CShape(Color color);
+	CShape(RGBColor const& color);
 	virtual ~CShape() = default;
 	virtual void Draw(ICanvas & canvas) const = 0;
-	Color GetColor()const;
+	RGBColor GetColor()const;
 private:
-	Color m_color;
+	RGBColor m_color;
 };
 

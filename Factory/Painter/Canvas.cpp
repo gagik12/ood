@@ -6,16 +6,25 @@ CCanvas::CCanvas(std::ostream & outStream)
 	: m_outStream(outStream)
 {
 }
-
-void CCanvas::SetColor(Color color)
+//Triangle red 10 10 400 400 200 500
+void CCanvas::SetColor(RGBColor const& color)
 {
 	m_color = color;
-	m_outStream << "Color: " << CColorUtil::ToString(m_color) << std::endl;
+	glColor3f(GLfloat(m_color.r / MAX_RGB_COLOR_VALUE), GLfloat(m_color.g / MAX_RGB_COLOR_VALUE), GLfloat(m_color.b / MAX_RGB_COLOR_VALUE));
 }
 
 void CCanvas::DrawLine(CPoint const& from, CPoint const& to)
 {
-	m_outStream << "Draw line: from [" << from << "] to [" << to << "]" << std::endl;
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_LINE_SMOOTH);
+	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glLineWidth(2);
+	glBegin(GL_LINES);
+		glVertex2f(from.GetX(), from.GetY());
+		glVertex2f(to.GetX(), to.GetY());
+	glEnd();
+	glDisable(GL_LINE_SMOOTH);
 }
 
 void CCanvas::DrawEllipse(CPoint const& center, float width, float height)

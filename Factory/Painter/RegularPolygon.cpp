@@ -2,7 +2,7 @@
 #include "RegularPolygon.h"
 
 
-CRegularPolygon::CRegularPolygon(CPoint const& center, float radius, unsigned vertexCount, Color color)
+CRegularPolygon::CRegularPolygon(CPoint const& center, float radius, unsigned vertexCount, RGBColor const& color)
 	: CShape(color)
 	, m_center(center)
 	, m_radius(radius)

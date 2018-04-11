@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Triangle.h"
 
-CTriangle::CTriangle(CPoint const& point1, CPoint const& point2, CPoint const& point3, Color color)
+CTriangle::CTriangle(CPoint const& point1, CPoint const& point2, CPoint const& point3, RGBColor const& color)
 	: CShape(color)
 	, m_point1(point1)
 	, m_point2(point2)

@@ -6,6 +6,7 @@
 #include "Painter.h"
 #include "Client.h"
 #include "Canvas.h"
+#include "Window.h"
 
 void PrintInstructions()
 {
@@ -24,10 +25,12 @@ int main()
 
 	CPainter painter;
 
-	CClient client(designer, painter);
-	
-	client.OrderPictures(std::cin);
-	
+	CPictureDraft pictureDraft = designer.CreateDraft(std::cin);
+
+	CWindow window(painter, pictureDraft);
+	window.ShowFixedSize({ 600, 600 });
+	window.EnterMainLoop();
+
 	return 0;
 }
 

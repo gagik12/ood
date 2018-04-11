@@ -2,7 +2,7 @@
 #include "Rectangle.h"
 
 
-CRectangle::CRectangle(CPoint const& leftTop, CPoint const& rightBottom, Color color)
+CRectangle::CRectangle(CPoint const& leftTop, CPoint const& rightBottom, RGBColor const& color)
 	: CShape(color)
 	, m_leftTop(leftTop)
 	, m_rightBottom(rightBottom)

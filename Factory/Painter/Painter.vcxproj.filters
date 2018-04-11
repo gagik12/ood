@@ -37,6 +37,9 @@
     <Filter Include="ShapeFactory">
       <UniqueIdentifier>{9860ff4f-797e-4dba-bd4b-f82376bfdcf1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{8644107d-d1b2-4cf1-a8f5-e5325a03a8fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -99,6 +102,15 @@
     <ClInclude Include="ShapeFactory.h">
       <Filter>ShapeFactory</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractWindow.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="RGBColor.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -145,6 +157,15 @@
     </ClCompile>
     <ClCompile Include="ShapeFactory.cpp">
       <Filter>ShapeFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractWindow.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="RGBColor.cpp">
+      <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
