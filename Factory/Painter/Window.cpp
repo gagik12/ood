@@ -5,7 +5,7 @@
 CWindow::CWindow(IPainter & painter, CPictureDraft & pictureDraft)
 	: m_painter(painter)
 	, m_pictureDraft(pictureDraft)
-	, m_canvas(std::make_unique<CCanvas>(std::cout))
+	, m_canvas(std::make_unique<CCanvas>())
 {
 }
 

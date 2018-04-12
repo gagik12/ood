@@ -6,7 +6,7 @@
 CClient::CClient(IDesigner & designer, IPainter & painter)
 	: m_designer(designer)
 	, m_painter(painter)
-	, m_canvas(std::make_unique<CCanvas>(std::cout))
+	, m_canvas(std::make_unique<CCanvas>())
 {
 }
 

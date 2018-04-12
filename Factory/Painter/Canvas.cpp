@@ -2,11 +2,10 @@
 #include "Canvas.h"
 
 
-CCanvas::CCanvas(std::ostream & outStream)
-	: m_outStream(outStream)
+CCanvas::CCanvas()
 {
 }
-//Triangle red 10 10 400 400 200 500
+
 void CCanvas::SetColor(RGBColor const& color)
 {
 	m_color = color;

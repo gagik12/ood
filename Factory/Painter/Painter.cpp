@@ -2,7 +2,7 @@
 #include "Painter.h"
 #include "Shape.h"
 
-void CPainter::DrawPicture(CPictureDraft& draft, ICanvas& canvas)
+void CPainter::DrawPicture(CPictureDraft const& draft, ICanvas& canvas)
 {
 	for (const auto& shape : draft)
 	{
