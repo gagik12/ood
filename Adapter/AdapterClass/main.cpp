@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Adapter.h"
+#include "AdapterClass.h"
 
 using namespace std;
 
