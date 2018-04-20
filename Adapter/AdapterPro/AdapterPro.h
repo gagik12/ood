@@ -26,6 +26,10 @@ namespace graphics_lib
 	class CCanvas : public ICanvas
 	{
 	public:
+		CCanvas(std::ostream  & stream)
+			: m_stream(stream)
+		{
+		}
 		void SetColor(uint32_t rgbColor = 0x000000) override
 		{
 			cout << "SetColor (#" << std::hex << std::uppercase << rgbColor << ")" << std::endl;
@@ -38,6 +42,8 @@ namespace graphics_lib
 		{
 			cout << "LineTo (" << x << ", " << y << ")" << endl;
 		}
+	private:
+		std::ostream  & m_stream;
 	};
 }
 
@@ -264,7 +270,7 @@ namespace app
 
 	void PaintPictureOnCanvas()
 	{
-		graphics_lib::CCanvas simpleCanvas;
+		graphics_lib::CCanvas simpleCanvas(cout);
 		shape_drawing_lib::CCanvasPainter painter(simpleCanvas);
 		PaintPicture(painter);
 	}
