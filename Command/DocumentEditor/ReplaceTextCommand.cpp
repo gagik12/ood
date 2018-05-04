@@ -2,19 +2,23 @@
 #include "ReplaceTextCommand.h"
 
 
-CReplaceTextCommand::CReplaceTextCommand(std::string const& newText, IParagraphPtr & paragraph)
-	: m_paragraph(paragraph)
+CReplaceTextCommand::CReplaceTextCommand(std::string const& newText, size_t index, std::vector<CDocumentItem> & documentItems)
+	: m_index(index)
 	, m_newText(newText)
-	, m_oldText(paragraph->GetText())
+	, m_documentItems(documentItems)
+	, m_oldText(documentItems.at(index).GetParagraph()->GetText())
 {
 }
 
 void CReplaceTextCommand::DoExecute()
 {
-	m_paragraph->SetText(m_newText);
+	auto & paragraph = m_documentItems.at(m_index).GetParagraph();
+	paragraph->SetText(m_newText);
+	//m_paragraph->SetText(m_newText);
 }
 
 void CReplaceTextCommand::DoUnexecute()
 {
-	m_paragraph->SetText(m_oldText);
+	auto & paragraph = m_documentItems.at(m_index).GetParagraph();
+	paragraph->SetText(m_oldText);
 }

@@ -11,7 +11,7 @@ private:
 	std::vector<CDocumentItem> const& m_documentItems;
 
 	std::string ConvertTitleInDOMElement();
-	std::string ConvertImageInDOMElement() const;
+	std::string ConvertImageInDOMElement(IImagePtr const& image) const;
 	std::string ConvertParagraphInDOMElement(IParagraphPtr const& paragraph) const;
 	std::string ConvertDocumentInDOMElements() const;
 

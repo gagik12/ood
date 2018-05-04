@@ -19,6 +19,8 @@ private:
 	void DeleteItem(std::istream & in);
 	void Save(std::istream & in);
 	void ReplaceText(std::istream & in);
+	void ResizeImage(std::istream & in);
+	void InsertImage(std::istream & in);
 
 	void List(std::istream &);
 

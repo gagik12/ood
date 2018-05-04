@@ -6,8 +6,16 @@
 #include "Paragraph.h"
 #include "HtmlExporter.h"
 #include "ReplaceTextCommand.h"
+#include "InsertImageCommand.h"
+#include "FileUtils.h"
+#include "ResizeImageCommand.h"
 
 using namespace std;
+
+CDocument::~CDocument()
+{
+	CFileUtils::ClearFolder(FOLDER_WITH_IMAGES);
+}
 
 void CDocument::SetTitle(const std::string & title)
 {
@@ -20,6 +28,12 @@ void CDocument::InsertParagraph(IParagraphPtr const& paragraph, boost::optional<
 	m_history.AddAndExecuteCommand(make_unique<CInsertParagraphCommand>(paragraph, index, m_documentItems));
 }
 
+void CDocument::InsertImage(IImagePtr const& image, boost::optional<size_t> position)
+{
+	size_t index = position.is_initialized() ? position.get() : m_documentItems.size();
+	m_history.AddAndExecuteCommand(make_unique<CInsertImageCommand>(image, index, m_documentItems));
+}
+
 void CDocument::DeleteItem(size_t index)
 {
 	m_history.AddAndExecuteCommand(make_unique<CDeleteItemCommand>(index, m_documentItems));
@@ -27,9 +41,12 @@ void CDocument::DeleteItem(size_t index)
 
 void CDocument::ReplaceText(size_t index, std::string const& newText)
 {
-	auto & documentItem = m_documentItems.at(index);
-	auto & paragraph = documentItem.GetParagraph();
-	m_history.AddAndExecuteCommand(make_unique<CReplaceTextCommand>(newText, paragraph));
+	m_history.AddAndExecuteCommand(make_unique<CReplaceTextCommand>(newText, index, m_documentItems));
+}
+
+void CDocument::ResizeImage(std::pair<int, int> const& newSize, size_t index)
+{
+	m_history.AddAndExecuteCommand(make_unique<CResizeImageCommand>(newSize, index, m_documentItems));
 }
 
 std::string CDocument::GetTitle() const

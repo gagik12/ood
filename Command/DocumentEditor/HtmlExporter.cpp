@@ -1,12 +1,13 @@
 #include "stdafx.h"
 #include "HtmlExporter.h"
 #include "StringUtils.h"
+#include "FileUtils.h"
 
 namespace Templates
 {
 	const std::string TITLE = R"(<title>%1%</title>
 )";
-	const std::string IMAGE = R"(<img>
+	const std::string IMAGE = R"(<img src="%1%" width="%2%" height="%3%">
 )";
 	const std::string PARAGRAPH = R"(<p>%1%</p>
 )";
@@ -34,9 +35,11 @@ std::string CHtmlExporter::ConvertTitleInDOMElement()
 	return (boost::format(Templates::TITLE) % m_title).str();
 }
 
-std::string CHtmlExporter::ConvertImageInDOMElement() const
+std::string CHtmlExporter::ConvertImageInDOMElement(IImagePtr const& image) const
 {
-	return "<img>";
+	std::string path = image->GetPath().string();
+	CStringUtils::EncodeSpecialCharacters(path);
+	return (boost::format(Templates::IMAGE) % path % image->GetWidth() % image->GetHeight()).str();
 }
 
 std::string CHtmlExporter::ConvertParagraphInDOMElement(IParagraphPtr const& paragraph) const
@@ -60,7 +63,7 @@ std::string CHtmlExporter::ConvertDocumentInDOMElements() const
 		}
 		if (image != nullptr)
 		{
-			//itemElements += ConvertImageInDOMElement();
+			itemElements += ConvertImageInDOMElement(image);
 		}
 		documentElements += itemElements;
 	}
@@ -72,8 +75,8 @@ void CHtmlExporter::Export(boost::filesystem::path const& path)
 	std::string titleElement = ConvertTitleInDOMElement();
 	std::string documentElements = ConvertDocumentInDOMElements();
 	std::string htmlCode = (boost::format(Templates::MAIN) % titleElement % documentElements).str();
-	std::cout << htmlCode << std::endl;
 	SaveHtmlCodeInFile(htmlCode, path);
+	CFileUtils::CopyFolderWithImage(FOLDER_WITH_IMAGES, path.branch_path());
 }
 
 void CHtmlExporter::SaveHtmlCodeInFile(std::string const& pageCode, boost::filesystem::path const& path) const
@@ -83,8 +86,8 @@ void CHtmlExporter::SaveHtmlCodeInFile(std::string const& pageCode, boost::files
 	{
 		boost::filesystem::create_directory(directory);
 	}
-
 	std::ofstream stream(path.string());
 
 	stream << pageCode << std::endl;
 }
+

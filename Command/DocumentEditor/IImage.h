@@ -5,7 +5,9 @@ class IImage
 {
 public:
 	//// ¬озвращает путь относительно каталога документа
-	virtual std::string GetPath()const = 0;
+	virtual boost::filesystem::path GetPath()const = 0;
+
+	virtual void SetPath(std::string const& path) = 0;
 
 	//// Ўирина изображени€ в пиксел€х
 	virtual int GetWidth()const = 0;

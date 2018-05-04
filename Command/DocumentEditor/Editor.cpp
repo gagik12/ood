@@ -2,6 +2,9 @@
 #include "Editor.h"
 #include "StreamUtils.h"
 #include "Paragraph.h"
+#include "Image.h"
+#include "IImage.h"
+#include "FileUtils.h"
 
 using namespace std;
 using namespace std::placeholders;
@@ -19,6 +22,8 @@ CEditor::CEditor()
 	AddMenuItem("deleteItem", "Delete document item. Args: <position>", &CEditor::DeleteItem);
 	AddMenuItem("save", "Save document. Args: <path>", &CEditor::Save);
 	AddMenuItem("replaceText", "Replace text paragraph. Args: <position> <text>", &CEditor::ReplaceText);
+	AddMenuItem("insertImage", "Add image. Args: <position>|end <width> <height> <path>", &CEditor::InsertImage);
+	AddMenuItem("resizeImage", "Resize image. Args: <position> <width> <height>", &CEditor::ResizeImage);
 }
 
 void CEditor::Start()
@@ -35,7 +40,19 @@ void CEditor::InsertParagraph(istream & in)
 {
 	ParagraphInfo paragraphInfo = CStreamUtils::GetParagraphInfo(in, m_document->GetItemsCount());
 	IParagraphPtr paragraph = std::make_shared<CParagraph>(paragraphInfo.second);
-	m_document->InsertParagraph(paragraph, paragraphInfo.first);
+	auto position = paragraphInfo.first;
+	m_document->InsertParagraph(paragraph, position);
+}
+
+void CEditor::InsertImage(std::istream & in)
+{
+	//std::string const& path, int width, int height
+	ImageInfo imageInfo = CStreamUtils::GetImageInfo(in, m_document->GetItemsCount());
+	int width = imageInfo.size.first;
+	int height = imageInfo.size.second;
+	IImagePtr image = std::make_shared<CImage>(imageInfo.path, width, height);
+	auto position = imageInfo.position;
+	m_document->InsertImage(image, position);
 }
 
 void CEditor::DeleteItem(istream & in)
@@ -54,7 +71,25 @@ void CEditor::ReplaceText(std::istream & in)
 {
 	size_t index = CStreamUtils::GetIndex(in, m_document->GetItemsCount());
 	string text = CStreamUtils::GetText(in);
+	auto & documentItem = m_document->GetItem(index);
+	auto & paragraph = documentItem.GetParagraph();
+	if (paragraph == nullptr)
+	{
+		throw std::length_error("In this position there is no paragraph");
+	}
 	m_document->ReplaceText(index, text);
+}
+
+void CEditor::ResizeImage(std::istream & in)
+{
+	auto resizeImageOptions = CStreamUtils::GetResizeImageOptions(in, m_document->GetItemsCount());
+	auto & documentItem = m_document->GetItem(resizeImageOptions.first.get());
+	auto & image = documentItem.GetImage();
+	if (image == nullptr)
+	{
+		throw std::length_error("In this position there is no image");
+	}
+	m_document->ResizeImage(resizeImageOptions.second, resizeImageOptions.first.get());
 }
 
 void CEditor::Save(istream & in)
@@ -71,7 +106,15 @@ void CEditor::List(istream &)
 	{
 		auto item = m_document->GetItem(index);
 		auto paragraph = item.GetParagraph();
-		std::cout << index << ". Paragraph: " << paragraph->GetText() << std::endl;
+		auto image = item.GetImage();
+		if (paragraph != nullptr)
+		{
+			std::cout << index << ". Paragraph: " << paragraph->GetText() << std::endl;
+		}
+		if (image != nullptr)
+		{
+			std::cout << index << ". Image: " << image->GetWidth() << " " << image->GetHeight() << " " << image->GetPath().string() << std::endl;
+		}
 	}
 	cout << "-------------" << endl;
 }

@@ -14,8 +14,7 @@ public:
 	//// Параметр path задает путь к вставляемому изображению
 	//// При вставке изображение должно копироваться в подкаталог images 
 	//// под автоматически сгенерированным именем
-	//virtual std::shared_ptr<IImage> InsertImage(const std::string& path, int width, int height,
-	//	boost::optional<size_t> position = boost::none) = 0;
+	virtual void InsertImage(IImagePtr const& image, boost::optional<size_t> position = boost::none) = 0;
 
 	virtual size_t GetItemsCount()const = 0;
 
@@ -44,6 +43,7 @@ public:
 	virtual void Save(const boost::filesystem::path& path)const = 0;
 
 	virtual void ReplaceText(size_t index, std::string const& newText) = 0;
+	virtual void ResizeImage(std::pair<int, int> const& newSize, size_t index) = 0;
 
 	virtual ~IDocument() = default;
 };

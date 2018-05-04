@@ -23,3 +23,17 @@ void CStringUtils::EncodeSpecialCharacters(std::string & str)
 		boost::replace_all(str, escapeCode.first, escapeCode.second);
 	}
 }
+
+std::string CStringUtils::GetRandomString(std::size_t length)
+{
+	static const std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
+	std::default_random_engine randomEngine(std::time(nullptr));
+	std::uniform_int_distribution<std::size_t> distribution(0, alphabet.size() - 1);
+
+	std::string str;
+	while (str.size() < length)
+	{
+		str += alphabet[distribution(randomEngine)];
+	}
+	return str;
+}

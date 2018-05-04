@@ -28,5 +28,7 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <cctype>
 #include <boost/filesystem.hpp>
+#include <random>
+#include <filesystem>
 
 // TODO: reference additional headers your program requires here

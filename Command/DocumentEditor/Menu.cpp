@@ -51,7 +51,7 @@ bool CMenu::ExecuteCommand(const string & command)
 		{
 			it->command(iss);
 		}
-		catch (CStreamParsingError const& error)
+		catch (std::exception const& error)
 		{
 			std::cout << error.what() << std::endl;
 		}
