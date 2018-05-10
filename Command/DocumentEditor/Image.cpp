@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "Image.h"
+#include "ResizeImageCommand.h"
 
-CImage::CImage(boost::filesystem::path const& path, int width, int height)
+CImage::CImage(boost::filesystem::path const& path, std::pair<int, int> const& size, CHistory & history)
 	: m_path(path)
-	, m_width(width)
-	, m_height(height)
+	, m_size(size)
+	, m_history(history)
 {
 }
 
@@ -16,21 +17,19 @@ boost::filesystem::path CImage::GetPath() const
 void CImage::SetPath(std::string const& path)
 {
 	m_path = path;
-
 }
 
 int CImage::GetWidth() const
 {
-	return m_width;
+	return m_size.first;
 }
 
 int CImage::GetHeight() const
 {
-	return m_height;
+	return m_size.second;
 }
 
 void CImage::Resize(int width, int height)
 {
-	m_width = width;
-	m_height = height;
+	m_history.AddAndExecuteCommand(std::make_unique<CResizeImageCommand>(m_size, std::make_pair(width, height)));
 }

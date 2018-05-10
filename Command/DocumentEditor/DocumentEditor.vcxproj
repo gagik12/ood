@@ -157,7 +157,6 @@
     <ClInclude Include="IParagraph.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Paragraph.h" />
-    <ClInclude Include="ReplaceTextCommand.h" />
     <ClInclude Include="ResizeImageCommand.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StreamParsingError.h" />
@@ -181,7 +180,6 @@
     <ClCompile Include="InsertParagraphCommand.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Paragraph.cpp" />
-    <ClCompile Include="ReplaceTextCommand.cpp" />
     <ClCompile Include="ResizeImageCommand.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

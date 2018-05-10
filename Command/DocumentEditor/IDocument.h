@@ -8,13 +8,13 @@ class IDocument
 public:
 	// ¬ставл€ет параграф текста в указанную позицию (сдвига€ последующие элементы)
 	// ≈сли параметр position не указан, вставка происходит в конец документа
-	virtual void InsertParagraph(IParagraphPtr const& paragraph, boost::optional<size_t> position = boost::none) = 0;
+	virtual void InsertParagraph(std::string const& text, boost::optional<size_t> position = boost::none) = 0;
 
 	//// ¬ставл€ет изображение в указанную позицию (сдвига€ последующие элементы)
 	//// ѕараметр path задает путь к вставл€емому изображению
 	//// ѕри вставке изображение должно копироватьс€ в подкаталог images 
 	//// под автоматически сгенерированным именем
-	virtual void InsertImage(IImagePtr const& image, boost::optional<size_t> position = boost::none) = 0;
+	virtual void InsertImage(std::string const& path, std::pair<int, int> const& size, boost::optional<size_t> position = boost::none) = 0;
 
 	virtual size_t GetItemsCount()const = 0;
 
@@ -41,9 +41,6 @@ public:
 	//// —охран€ет документ в формате html. »зображени€ сохран€ютс€ в подкаталог images.
 	//// ѕути к изображени€м указываютс€ относительно пути к сохран€емому HTML файлу
 	virtual void Save(const boost::filesystem::path& path)const = 0;
-
-	virtual void ReplaceText(size_t index, std::string const& newText) = 0;
-	virtual void ResizeImage(std::pair<int, int> const& newSize, size_t index) = 0;
 
 	virtual ~IDocument() = default;
 };

@@ -2,23 +2,18 @@
 #include "ResizeImageCommand.h"
 #include "IImage.h"
 
-CResizeImageCommand::CResizeImageCommand(std::pair<int, int> const& newSize, size_t index, std::vector<CDocumentItem> & documentItems)
-	: m_newSize(newSize)
-	, m_index(index)
-	, m_documentItems(documentItems)
+CResizeImageCommand::CResizeImageCommand(std::pair<int, int> & targetSize, std::pair<int, int> const& newSize)
+	: m_targetSize(targetSize)
+	, m_newSize(newSize)
 {
-	auto image = m_documentItems.at(m_index).GetImage();
-	m_oldSize = std::make_pair(image->GetWidth(), image->GetHeight());
 }
 
 void CResizeImageCommand::DoExecute()
 {
-	auto & image = m_documentItems.at(m_index).GetImage();
-	image->Resize(m_newSize.first, m_newSize.second);
+	m_newSize.swap(m_targetSize);
 }
 
 void CResizeImageCommand::DoUnexecute()
 {
-	auto & image = m_documentItems.at(m_index).GetImage();
-	image->Resize(m_oldSize.first, m_oldSize.second);
+	m_newSize.swap(m_targetSize);
 }

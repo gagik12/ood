@@ -96,9 +96,6 @@
     <ClInclude Include="StringUtils.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="ReplaceTextCommand.h">
-      <Filter>Commands</Filter>
-    </ClInclude>
     <ClInclude Include="InsertImageCommand.h">
       <Filter>Commands</Filter>
     </ClInclude>
@@ -160,9 +157,6 @@
     </ClCompile>
     <ClCompile Include="StringUtils.cpp">
       <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="ReplaceTextCommand.cpp">
-      <Filter>Commands</Filter>
     </ClCompile>
     <ClCompile Include="InsertImageCommand.cpp">
       <Filter>Commands</Filter>

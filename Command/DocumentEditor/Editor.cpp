@@ -39,20 +39,17 @@ void CEditor::AddMenuItem(const string & shortcut, const string & description, M
 void CEditor::InsertParagraph(istream & in)
 {
 	ParagraphInfo paragraphInfo = CStreamUtils::GetParagraphInfo(in, m_document->GetItemsCount());
-	IParagraphPtr paragraph = std::make_shared<CParagraph>(paragraphInfo.second);
 	auto position = paragraphInfo.first;
-	m_document->InsertParagraph(paragraph, position);
+	m_document->InsertParagraph(paragraphInfo.second, position);
 }
 
 void CEditor::InsertImage(std::istream & in)
 {
 	//std::string const& path, int width, int height
 	ImageInfo imageInfo = CStreamUtils::GetImageInfo(in, m_document->GetItemsCount());
-	int width = imageInfo.size.first;
-	int height = imageInfo.size.second;
-	IImagePtr image = std::make_shared<CImage>(imageInfo.path, width, height);
 	auto position = imageInfo.position;
-	m_document->InsertImage(image, position);
+	std::string path = imageInfo.path;
+	m_document->InsertImage(path, imageInfo.size, position);
 }
 
 void CEditor::DeleteItem(istream & in)
@@ -77,19 +74,22 @@ void CEditor::ReplaceText(std::istream & in)
 	{
 		throw std::length_error("In this position there is no paragraph");
 	}
-	m_document->ReplaceText(index, text);
+	paragraph->SetText(text);
+	//m_document->ReplaceText(index, text);
 }
 
 void CEditor::ResizeImage(std::istream & in)
 {
-	auto resizeImageOptions = CStreamUtils::GetResizeImageOptions(in, m_document->GetItemsCount());
-	auto & documentItem = m_document->GetItem(resizeImageOptions.first.get());
+	auto resizeOptions = CStreamUtils::GetResizeImageOptions(in, m_document->GetItemsCount());
+	auto & documentItem = m_document->GetItem(resizeOptions.first.get());
 	auto & image = documentItem.GetImage();
 	if (image == nullptr)
 	{
 		throw std::length_error("In this position there is no image");
 	}
-	m_document->ResizeImage(resizeImageOptions.second, resizeImageOptions.first.get());
+	auto size = resizeOptions.second;
+	image->Resize(size.first, size.second);
+	//m_document->ResizeImage(size.second, size.first.get());
 }
 
 void CEditor::Save(istream & in)
