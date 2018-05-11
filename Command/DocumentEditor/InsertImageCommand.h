@@ -12,7 +12,8 @@ protected:
 	void DoUnexecute() override;
 private:
 	IImagePtr m_image;
-	boost::filesystem::path m_imagePath;
+	boost::filesystem::path m_originalImagePath;
+	std::string m_imageName;
 	size_t m_index;
 	std::vector<CDocumentItem> & m_documentItems;
 };
