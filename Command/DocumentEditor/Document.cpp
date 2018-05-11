@@ -14,7 +14,6 @@ using namespace std;
 
 CDocument::~CDocument()
 {
-	CFileUtils::ClearFolder(FOLDER_WITH_IMAGES);
 }
 
 void CDocument::SetTitle(const std::string & title)
