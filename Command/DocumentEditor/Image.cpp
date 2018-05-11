@@ -2,7 +2,7 @@
 #include "Image.h"
 #include "ResizeImageCommand.h"
 
-CImage::CImage(boost::filesystem::path const& path, std::pair<int, int> const& size, CHistory & history)
+CImage::CImage(boost::filesystem::path const& path, std::pair<int, int> const& size, IHistory & history)
 	: m_path(path)
 	, m_size(size)
 	, m_history(history)

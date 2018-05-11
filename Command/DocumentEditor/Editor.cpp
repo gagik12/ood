@@ -49,6 +49,7 @@ void CEditor::InsertImage(std::istream & in)
 	ImageInfo imageInfo = CStreamUtils::GetImageInfo(in, m_document->GetItemsCount());
 	auto position = imageInfo.position;
 	std::string path = imageInfo.path;
+
 	m_document->InsertImage(path, imageInfo.size, position);
 }
 

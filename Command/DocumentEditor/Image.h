@@ -1,11 +1,11 @@
 #pragma once
 #include "IImage.h"
-#include "History.h"
+#include "IHistory.h"
 
 class CImage : public IImage
 {
 public:
-	CImage(boost::filesystem::path const& path, std::pair<int, int> const& size, CHistory & history);
+	CImage(boost::filesystem::path const& path, std::pair<int, int> const& size, IHistory & history);
 	boost::filesystem::path GetPath() const override;
 	void SetPath(std::string const& path) override;
 	int GetWidth() const override;
@@ -14,5 +14,5 @@ public:
 private:
 	std::pair<int, int> m_size;
 	boost::filesystem::path m_path;
-	CHistory & m_history;
+	IHistory & m_history;
 };
