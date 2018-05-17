@@ -170,6 +170,7 @@
     <ClInclude Include="..\DocumentEditor\StreamParsingError.h" />
     <ClInclude Include="..\DocumentEditor\StreamUtils.h" />
     <ClInclude Include="..\DocumentEditor\StringUtils.h" />
+    <ClInclude Include="HistoryTests.cpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -191,6 +192,7 @@
     <ClCompile Include="..\DocumentEditor\StreamUtils.cpp" />
     <ClCompile Include="..\DocumentEditor\StringUtils.cpp" />
     <ClCompile Include="DocumentTests.cpp" />
+    <ClCompile Include="HtmlExporterTests.cpp" />
     <ClCompile Include="ImageTests.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParagraphTests.cpp" />
