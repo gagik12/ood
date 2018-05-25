@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shape">
+      <UniqueIdentifier>{d4570988-daf3-4aa2-b962-498d845033b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Style">
+      <UniqueIdentifier>{437fa868-40d6-42ee-90b1-ed4907dad580}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -33,32 +39,53 @@
     <ClInclude Include="IDrawable.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="IStyle.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="IShape.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="IShapes.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="IGroupShape.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Triangle.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="GroupShape.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="ISlide.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Slide.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="IShape.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="IShapes.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
     <ClInclude Include="Shape.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="IGroupShape.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="GroupShape.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="IStyle.h">
+      <Filter>Style</Filter>
+    </ClInclude>
+    <ClInclude Include="FillStyle.h">
+      <Filter>Style</Filter>
+    </ClInclude>
+    <ClInclude Include="OutlineStyle.h">
+      <Filter>Style</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellipse.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
       <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="IOutlineStyle.h">
+      <Filter>Style</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -71,17 +98,35 @@
     <ClCompile Include="CommonTypes.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Triangle.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="GroupShape.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Slide.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Shape</Filter>
+    </ClCompile>
     <ClCompile Include="Shape.cpp">
+      <Filter>Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="FillStyle.cpp">
+      <Filter>Style</Filter>
+    </ClCompile>
+    <ClCompile Include="OutlineStyle.cpp">
+      <Filter>Style</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellipse.cpp">
+      <Filter>Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
       <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="GroupShape.cpp">
+      <Filter>Shape</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

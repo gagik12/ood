@@ -11,6 +11,9 @@
 #include <tchar.h>
 #include <cstdint>
 #include <memory>
-
+#include <string>
+#include <sstream>
+#include <vector>
+#include <iostream>
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
