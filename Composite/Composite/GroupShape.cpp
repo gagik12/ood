@@ -8,15 +8,41 @@ CGroupShape::CGroupShape()
 
 RectD CGroupShape::GetFrame()
 {
-	if (m_shapes.size() == 0)
+	if (m_shapes.empty())
 	{
-
+		throw std::runtime_error("Coollection empty");
 	}
 
-	for (auto const& shape : m_shapes)
+	auto fisrtFrame = m_shapes.front()->GetFrame();
+	double minX = fisrtFrame.left;
+	double minY = fisrtFrame.top;
+	double maxX = fisrtFrame.left + fisrtFrame.width;
+	double maxY = fisrtFrame.top + fisrtFrame.height;
+
+	for (size_t i = 1; i < GetShapesCount(); ++i)
 	{
+		auto frame = m_shapes[i]->GetFrame();
+		if (minX > frame.left)
+		{
+			minX = frame.left;
+		}
+
+		if (minY > frame.top)
+		{
+			minY = frame.top;
+		}
+
+		if (maxX < frame.left + frame.width)
+		{
+			maxX = frame.left + frame.width;
+		}
+
+		if (maxY < frame.top + frame.height)
+		{
+			maxY = frame.top + frame.height;
+		}
 	}
-	return RectD();
+	return RectD{ minX, minY, maxX - minX, maxY - minY };
 }
 
 void CGroupShape::SetFrame(const RectD & rect)
@@ -24,44 +50,45 @@ void CGroupShape::SetFrame(const RectD & rect)
 
 }
 
-IOutlineStyle & CGroupShape::GetOutlineStyle()
+std::shared_ptr<IOutlineStyle> CGroupShape::GetOutlineStyle()const
 {
-	return *m_outlineStyle;
+	if (m_shapes.empty())
+	{
+		throw std::runtime_error("Coollection empty");
+	}
+
+	bool stylesEqual = std::all_of(m_shapes.begin(), m_shapes.end(), [&](auto & shape) {
+		return (shape->GetFillStyle() == m_shapes.front()->GetFillStyle());
+	});
+	return stylesEqual ? m_shapes.front()->GetOutlineStyle() : nullptr;
 }
 
-const IOutlineStyle & CGroupShape::GetOutlineStyle()const
+std::shared_ptr<IStyle> CGroupShape::GetFillStyle()const
 {
-	return *m_outlineStyle;
-}
-
-IStyle & CGroupShape::GetFillStyle()
-{
-	return *m_fillStyle;
-}
-
-const IStyle & CGroupShape::GetFillStyle()const
-{
-	return *m_fillStyle;
+	bool stylesEqual = std::all_of(m_shapes.begin(), m_shapes.end(), [&](auto & shape) {
+		return (shape->GetFillStyle() == m_shapes.front()->GetFillStyle());
+	});
+	return stylesEqual ? m_shapes.front()->GetFillStyle() : nullptr;
 }
 
 std::shared_ptr<IGroupShape> CGroupShape::GetGroup()
 {
-	return std::make_shared<CGroupShape>();
+	return shared_from_this();
 }
 
 std::shared_ptr<const IGroupShape> CGroupShape::GetGroup() const
 {
-	return std::make_shared<CGroupShape>();
+	return shared_from_this();
 }
 
 size_t CGroupShape::GetShapesCount()const
 {
-	return 0;
+	return m_shapes.size();
 }
 
 void CGroupShape::InsertShape(const std::shared_ptr<IShape> & shape, size_t position)
 {
-	if (position >= m_shapes.size())
+	if (position >= GetShapesCount())
 	{
 		m_shapes.push_back(shape);
 	}
@@ -73,7 +100,7 @@ void CGroupShape::InsertShape(const std::shared_ptr<IShape> & shape, size_t posi
 
 std::shared_ptr<IShape> CGroupShape::GetShapeAtIndex(size_t index)
 {
-	if (index >= m_shapes.size())
+	if (index >= GetShapesCount())
 	{
 		throw std::out_of_range("Index out of range");
 	}
@@ -82,7 +109,7 @@ std::shared_ptr<IShape> CGroupShape::GetShapeAtIndex(size_t index)
 
 void CGroupShape::RemoveShapeAtIndex(size_t index)
 {
-	if (index >= m_shapes.size())
+	if (index >= GetShapesCount())
 	{
 		throw std::out_of_range("Index out of range");
 	}

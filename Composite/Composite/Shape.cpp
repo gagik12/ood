@@ -14,14 +14,9 @@ void CShape::SetOutlineStyle(std::shared_ptr<IOutlineStyle> const& outlineStyle)
 	m_outlineStyle = outlineStyle;
 }
 
-IOutlineStyle & CShape::GetOutlineStyle()
+std::shared_ptr<IOutlineStyle> CShape::GetOutlineStyle()const
 {
-	return *m_outlineStyle;
-}
-
-const IOutlineStyle & CShape::GetOutlineStyle()const
-{
-	return *m_outlineStyle;
+	return m_outlineStyle;
 }
 
 void CShape::SetFillStyle(std::shared_ptr<IStyle> const& fillStyle)
@@ -29,14 +24,9 @@ void CShape::SetFillStyle(std::shared_ptr<IStyle> const& fillStyle)
 	m_fillStyle = fillStyle;
 }
 
-IStyle & CShape::GetFillStyle()
+std::shared_ptr<IStyle> CShape::GetFillStyle()const
 {
-	return *m_fillStyle;
-}
-
-const IStyle & CShape::GetFillStyle()const
-{
-	return *m_fillStyle;
+	return m_fillStyle;
 }
 
 std::shared_ptr<IGroupShape> CShape::GetGroup()

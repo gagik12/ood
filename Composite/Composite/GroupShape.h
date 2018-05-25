@@ -2,7 +2,7 @@
 #include "IGroupShape.h"
 #include "IOutlineStyle.h"
 
-class CGroupShape : public IGroupShape
+class CGroupShape : public IGroupShape, std::enable_shared_from_this<CGroupShape>
 {
 public:
 	CGroupShape();
@@ -10,11 +10,9 @@ public:
 	RectD GetFrame() override;
 	void SetFrame(const RectD & rect) override;
 
-	IOutlineStyle & GetOutlineStyle() override;
-	const IOutlineStyle & GetOutlineStyle()const override;
+	std::shared_ptr<IOutlineStyle> GetOutlineStyle()const override;
 
-	IStyle & GetFillStyle() override;
-	const IStyle & GetFillStyle()const override;
+	std::shared_ptr<IStyle> GetFillStyle()const override;
 
 	std::shared_ptr<IGroupShape> GetGroup() override;
 	std::shared_ptr<const IGroupShape> GetGroup() const override;
@@ -27,8 +25,6 @@ public:
 	void SetOutlineStyle(std::shared_ptr<IOutlineStyle> const& outlineStyle) override;
 	void SetFillStyle(std::shared_ptr<IStyle> const& fillStyle) override;
 private:
-	std::shared_ptr<IStyle> m_fillStyle;
-	std::shared_ptr<IOutlineStyle> m_outlineStyle;
 	std::vector<std::shared_ptr<IShape>> m_shapes;
 };
 
