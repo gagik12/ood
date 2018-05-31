@@ -8,6 +8,7 @@
 #include "Point.h"
 #include "GroupShape.h"
 #include "Canvas.h"
+#include "Slide.h"
 
 int main()
 {
@@ -21,7 +22,11 @@ int main()
 	house->InsertShape(ellipse, 1);
 
 	CCanvas canvas(std::cout);
-	house->Draw(canvas);
+	//house->Draw(canvas);
+
+	auto slide = std::make_shared<CSlide>(100, 200);
+	slide->AddShape(house);
+	slide->Draw(canvas);
     return 0;
 }
 

@@ -1,9 +1,32 @@
 #include "stdafx.h"
 #include "GroupShape.h"
 
-
 CGroupShape::CGroupShape()
 {
+	/*auto groupFillStyleEnumerator = [this](std::function<void(std::shared_ptr<IStyle>&)> fun) {
+		for (auto && shape : m_shapes)
+		{
+			//fun(shape->GetFillStyle());
+		}
+	};
+	groupFillStyleEnumerator([&](std::shared_ptr<IStyle>& style) {
+	});*/
+	FillStyleEnumerator fillStyleEnumerator = [this](std::function<void(std::shared_ptr<IStyle>&)> fun) {
+		for (auto && shape : m_shapes)
+		{
+			fun(shape->GetFillStyle());
+		}
+	};
+	m_groupFillStyle = std::make_shared<CGroupFillStyle>(fillStyleEnumerator);
+
+	OutlineStyleEnumerator outlineStyleEnumerator = [this](std::function<void(std::shared_ptr<IOutlineStyle>&)> fun) {
+		for (auto && shape : m_shapes)
+		{
+			fun(shape->GetOutlineStyle());
+		}
+	};
+	m_groupOutlineStyle = std::make_shared<CGroupOutlineStyle>(outlineStyleEnumerator);
+
 }
 
 RectD CGroupShape::GetFrame()
@@ -47,7 +70,21 @@ RectD CGroupShape::GetFrame()
 
 void CGroupShape::SetFrame(const RectD & rect)
 {
-
+	auto currentFrame = GetFrame();
+	double frameScaleX = rect.width / currentFrame.width;
+	double frameScaleY = rect.height / currentFrame.height;
+	for (size_t i = 1; i < GetShapesCount(); ++i)
+	{
+		auto shapeFrame = m_shapes[i]->GetFrame();
+		double shapeOffsetX = shapeFrame.left - rect.left;
+		double shapeOffsetY = shapeFrame.height - rect.height;
+		m_shapes[i]->SetFrame({ 
+			rect.left + shapeOffsetX * frameScaleX,
+			rect.top + shapeOffsetY * frameScaleY,
+			rect.width * frameScaleX,
+			rect.height * frameScaleY
+		});
+	}
 }
 
 std::shared_ptr<IOutlineStyle> CGroupShape::GetOutlineStyle()const
@@ -127,6 +164,13 @@ void CGroupShape::Draw(ICanvas & canvas)
 
 void CGroupShape::SetOutlineStyle(std::shared_ptr<IOutlineStyle> const& outlineStyle)
 {
+	/*
+	можно теперь изменять конкретные свойства у всех фигур
+	m_groupOutlineStyle->SetColor(fillStyle->GetColor().get());
+	m_groupOutlineStyle->Enable(fillStyle->IsEnabled().get());
+	m_groupOutlineStyle->SetOutlineThikness(outlineStyle->GetOutlineThikness().get());
+	*/
+
 	for (auto & shape : m_shapes)
 	{
 		shape->SetOutlineStyle(outlineStyle);
@@ -135,6 +179,11 @@ void CGroupShape::SetOutlineStyle(std::shared_ptr<IOutlineStyle> const& outlineS
 
 void CGroupShape::SetFillStyle(std::shared_ptr<IStyle> const& fillStyle)
 {
+	/*
+	можно теперь изменять конкретные свойства у всех фигур
+	m_groupFillStyle->SetColor(fillStyle->GetColor().get());
+	m_groupFillStyle->Enable(fillStyle->IsEnabled().get());
+	*/
 	for (auto & shape : m_shapes)
 	{
 		shape->SetFillStyle(fillStyle);

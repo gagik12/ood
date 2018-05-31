@@ -1,6 +1,8 @@
 #pragma once
 #include "IGroupShape.h"
 #include "IOutlineStyle.h"
+#include "GroupFillStyle.h"
+#include "GroupOutlineStyle.h"
 
 class CGroupShape : public IGroupShape, std::enable_shared_from_this<CGroupShape>
 {
@@ -26,5 +28,8 @@ public:
 	void SetFillStyle(std::shared_ptr<IStyle> const& fillStyle) override;
 private:
 	std::vector<std::shared_ptr<IShape>> m_shapes;
+
+	std::shared_ptr<CGroupFillStyle>  m_groupFillStyle;
+	std::shared_ptr<CGroupOutlineStyle>  m_groupOutlineStyle;
 };
 

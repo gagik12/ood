@@ -1,11 +1,12 @@
 #pragma once
 #include "IOutlineStyle.h"
 
-class COutlineStyle : public IOutlineStyle
+typedef std::function<void(std::function<void(std::shared_ptr<IOutlineStyle>&)>)> OutlineStyleEnumerator;
+
+class CGroupOutlineStyle : public IOutlineStyle
 {
 public:
-	COutlineStyle(bool enabled, RGBAColor color, float thickness);
-
+	CGroupOutlineStyle(OutlineStyleEnumerator & enumerator);
 	optional<bool> IsEnabled()const;
 	void Enable(bool enable);
 
@@ -15,8 +16,6 @@ public:
 	optional<float> GetOutlineThikness() const;
 	void SetOutlineThikness(float thikness);
 private:
-	bool m_enabled;
-	RGBAColor m_color;
-	float m_thickness;
+	OutlineStyleEnumerator & m_enumerator;
 };
 

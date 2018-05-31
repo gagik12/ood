@@ -43,7 +43,7 @@ void CShape::Draw(ICanvas & canvas)
 {
 	if (m_outlineStyle->IsEnabled())
 	{
-		canvas.SetOutlineThickness(m_outlineStyle->GetOutlineThikness());
+		canvas.SetOutlineThickness(m_outlineStyle->GetOutlineThikness().get());
 		canvas.SetLineColor(m_outlineStyle->GetColor().get());
 	}
 

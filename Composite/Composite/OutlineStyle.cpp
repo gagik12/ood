@@ -29,7 +29,7 @@ void COutlineStyle::SetColor(RGBAColor color)
 	m_color = color;
 }
 
-float COutlineStyle::GetOutlineThikness() const
+optional<float> COutlineStyle::GetOutlineThikness() const
 {
 	return m_thickness;
 }

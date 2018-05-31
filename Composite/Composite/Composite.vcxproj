@@ -142,6 +142,8 @@
     <ClInclude Include="CommonTypes.h" />
     <ClInclude Include="Ellipse.h" />
     <ClInclude Include="FillStyle.h" />
+    <ClInclude Include="GroupFillStyle.h" />
+    <ClInclude Include="GroupOutlineStyle.h" />
     <ClInclude Include="GroupShape.h" />
     <ClInclude Include="IOutlineStyle.h" />
     <ClInclude Include="ISlide.h" />
@@ -166,6 +168,8 @@
     <ClCompile Include="Composite.cpp" />
     <ClCompile Include="Ellipse.cpp" />
     <ClCompile Include="FillStyle.cpp" />
+    <ClCompile Include="GroupFillStyle.cpp" />
+    <ClCompile Include="GroupOutlineStyle.cpp" />
     <ClCompile Include="GroupShape.cpp" />
     <ClCompile Include="OutlineStyle.cpp" />
     <ClCompile Include="Point.cpp" />

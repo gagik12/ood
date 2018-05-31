@@ -87,6 +87,12 @@
     <ClInclude Include="IOutlineStyle.h">
       <Filter>Style</Filter>
     </ClInclude>
+    <ClInclude Include="GroupFillStyle.h">
+      <Filter>Style</Filter>
+    </ClInclude>
+    <ClInclude Include="GroupOutlineStyle.h">
+      <Filter>Style</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -127,6 +133,12 @@
     </ClCompile>
     <ClCompile Include="GroupShape.cpp">
       <Filter>Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="GroupFillStyle.cpp">
+      <Filter>Style</Filter>
+    </ClCompile>
+    <ClCompile Include="GroupOutlineStyle.cpp">
+      <Filter>Style</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
