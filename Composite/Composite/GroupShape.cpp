@@ -87,25 +87,15 @@ void CGroupShape::SetFrame(const RectD & rect)
 	}
 }
 
+
 std::shared_ptr<IOutlineStyle> CGroupShape::GetOutlineStyle()const
 {
-	if (m_shapes.empty())
-	{
-		throw std::runtime_error("Coollection empty");
-	}
-
-	bool stylesEqual = std::all_of(m_shapes.begin(), m_shapes.end(), [&](auto & shape) {
-		return (shape->GetFillStyle() == m_shapes.front()->GetFillStyle());
-	});
-	return stylesEqual ? m_shapes.front()->GetOutlineStyle() : nullptr;
+	return m_groupOutlineStyle;
 }
 
 std::shared_ptr<IStyle> CGroupShape::GetFillStyle()const
 {
-	bool stylesEqual = std::all_of(m_shapes.begin(), m_shapes.end(), [&](auto & shape) {
-		return (shape->GetFillStyle() == m_shapes.front()->GetFillStyle());
-	});
-	return stylesEqual ? m_shapes.front()->GetFillStyle() : nullptr;
+	return m_groupFillStyle;
 }
 
 std::shared_ptr<IGroupShape> CGroupShape::GetGroup()
