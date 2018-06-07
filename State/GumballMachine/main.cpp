@@ -48,7 +48,7 @@ void TestNaiveGumballMachine()
 
 void TestGumballMachineWithState()
 {
-	with_state::CGumballMachine m(5);
+	with_state::CGumballMachine m(5, std::cout);
 	TestGumballMachine(m);
 }
 

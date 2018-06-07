@@ -30,27 +30,28 @@ struct IGumballMachine
 class CSoldState : public IState
 {
 public:
-	CSoldState(IGumballMachine & gumballMachine)
-		:m_gumballMachine(gumballMachine)
+	CSoldState(IGumballMachine & gumballMachine, std::ostream & stream)
+		: m_gumballMachine(gumballMachine)
+		, m_stream(stream)
 	{}
 	void InsertQuarter() override
 	{
-		std::cout << "Please wait, we're already giving you a gumball\n";
+		m_stream << "Please wait, we're already giving you a gumball\n";
 	}
 	void EjectQuarter() override
 	{
-		std::cout << "Sorry you already turned the crank\n";
+		m_stream << "Sorry you already turned the crank\n";
 	}
 	void TurnCrank() override
 	{
-		std::cout << "Turning twice doesn't get you another gumball\n";
+		m_stream << "Turning twice doesn't get you another gumball\n";
 	}
 	void Dispense() override
 	{
 		m_gumballMachine.ReleaseBall();
 		if (m_gumballMachine.GetBallCount() == 0)
 		{
-			std::cout << "Oops, out of gumballs\n";
+			m_stream << "Oops, out of gumballs\n";
 			m_gumballMachine.SetSoldOutState();
 		}
 		else
@@ -64,30 +65,32 @@ public:
 	}
 private:
 	IGumballMachine & m_gumballMachine;
+	std::ostream & m_stream;
 };
 
 class CSoldOutState : public IState
 {
 public:
-	CSoldOutState(IGumballMachine & gumballMachine)
-		:m_gumballMachine(gumballMachine)
+	CSoldOutState(IGumballMachine & gumballMachine, std::ostream & stream)
+		: m_gumballMachine(gumballMachine)
+		, m_stream(stream)
 	{}
 
 	void InsertQuarter() override
 	{
-		std::cout << "You can't insert a quarter, the machine is sold out\n";
+		m_stream << "You can't insert a quarter, the machine is sold out\n";
 	}
 	void EjectQuarter() override
 	{
-		std::cout << "You can't eject, you haven't inserted a quarter yet\n";
+		m_stream << "You can't eject, you haven't inserted a quarter yet\n";
 	}
 	void TurnCrank() override
 	{
-		std::cout << "You turned but there's no gumballs\n";
+		m_stream << "You turned but there's no gumballs\n";
 	}
 	void Dispense() override
 	{
-		std::cout << "No gumball dispensed\n";
+		m_stream << "No gumball dispensed\n";
 	}
 	std::string ToString() const override
 	{
@@ -95,32 +98,34 @@ public:
 	}
 private:
 	IGumballMachine & m_gumballMachine;
+	std::ostream & m_stream;
 };
 
 class CHasQuarterState : public IState
 {
 public:
-	CHasQuarterState(IGumballMachine & gumballMachine)
-		:m_gumballMachine(gumballMachine)
+	CHasQuarterState(IGumballMachine & gumballMachine, std::ostream & stream)
+		: m_gumballMachine(gumballMachine)
+		, m_stream(stream)
 	{}
 
 	void InsertQuarter() override
 	{
-		std::cout << "You can't insert another quarter\n";
+		m_stream << "You can't insert another quarter\n";
 	}
 	void EjectQuarter() override
 	{
-		std::cout << "Quarter returned\n";
+		m_stream << "Quarter returned\n";
 		m_gumballMachine.SetNoQuarterState();
 	}
 	void TurnCrank() override
 	{
-		std::cout << "You turned...\n";
+		m_stream << "You turned...\n";
 		m_gumballMachine.SetSoldState();
 	}
 	void Dispense() override
 	{
-		std::cout << "No gumball dispensed\n";
+		m_stream << "No gumball dispensed\n";
 	}
 	std::string ToString() const override
 	{
@@ -128,31 +133,33 @@ public:
 	}
 private:
 	IGumballMachine & m_gumballMachine;
+	std::ostream & m_stream;
 };
 
 class CNoQuarterState : public IState
 {
 public:
-	CNoQuarterState(IGumballMachine & gumballMachine)
+	CNoQuarterState(IGumballMachine & gumballMachine, std::ostream & stream)
 		: m_gumballMachine(gumballMachine)
+		, m_stream(stream)
 	{}
 
 	void InsertQuarter() override
 	{
-		std::cout << "You inserted a quarter\n";
+		m_stream << "You inserted a quarter\n";
 		m_gumballMachine.SetHasQuarterState();
 	}
 	void EjectQuarter() override
 	{
-		std::cout << "You haven't inserted a quarter\n";
+		m_stream << "You haven't inserted a quarter\n";
 	}
 	void TurnCrank() override
 	{
-		std::cout << "You turned but there's no quarter\n";
+		m_stream << "You turned but there's no quarter\n";
 	}
 	void Dispense() override
 	{
-		std::cout << "You need to pay first\n";
+		m_stream << "You need to pay first\n";
 	}
 	std::string ToString() const override
 	{
@@ -160,18 +167,20 @@ public:
 	}
 private:
 	IGumballMachine & m_gumballMachine;
+	std::ostream & m_stream;
 };
 
 class CGumballMachine : private IGumballMachine
 {
 public:
-	CGumballMachine(unsigned numBalls)
-		: m_soldState(*this)
-		, m_soldOutState(*this)
-		, m_noQuarterState(*this)
-		, m_hasQuarterState(*this)
+	CGumballMachine(unsigned numBalls, std::ostream & stream)
+		: m_soldState(*this, stream)
+		, m_soldOutState(*this, stream)
+		, m_noQuarterState(*this, stream)
+		, m_hasQuarterState(*this, stream)
 		, m_state(&m_soldOutState)
 		, m_count(numBalls)
+		, m_stream(stream)
 	{
 		if (m_count > 0)
 		{
@@ -210,7 +219,7 @@ private:
 	{
 		if (m_count != 0)
 		{
-			std::cout << "A gumball comes rolling out the slot...\n";
+			m_stream << "A gumball comes rolling out the slot...\n";
 			--m_count;
 		}
 	}
@@ -237,6 +246,8 @@ private:
 	CNoQuarterState m_noQuarterState;
 	CHasQuarterState m_hasQuarterState;
 	IState * m_state;
+
+	std::ostream & m_stream;
 	
 };
 
