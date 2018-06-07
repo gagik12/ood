@@ -19,11 +19,6 @@ double CSlide::GetHeight()const
 	return m_height;
 }
 
-std::vector<std::shared_ptr<IShape>> & CSlide::GetShapes()
-{
-	return m_shapes;
-}
-
 void CSlide::AddShape(std::shared_ptr<IShape> const& shape)
 {
 	m_shapes.push_back(shape);

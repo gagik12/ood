@@ -8,7 +8,6 @@ public:
 	virtual double GetWidth()const = 0;
 	virtual double GetHeight()const = 0;
 
-	virtual std::vector<std::shared_ptr<IShape>> & GetShapes() = 0;
 	virtual void AddShape(std::shared_ptr<IShape> const& shape) = 0;
 	virtual ~ISlide() = default ;
 };

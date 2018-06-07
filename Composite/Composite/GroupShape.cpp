@@ -45,25 +45,11 @@ RectD CGroupShape::GetFrame()
 	for (size_t i = 1; i < GetShapesCount(); ++i)
 	{
 		auto frame = m_shapes[i]->GetFrame();
-		if (minX > frame.left)
-		{
-			minX = frame.left;
-		}
+		minX = std::min(minX, frame.left);
+		minY = std::min(minX, frame.top);
 
-		if (minY > frame.top)
-		{
-			minY = frame.top;
-		}
-
-		if (maxX < frame.left + frame.width)
-		{
-			maxX = frame.left + frame.width;
-		}
-
-		if (maxY < frame.top + frame.height)
-		{
-			maxY = frame.top + frame.height;
-		}
+		maxX = std::min(maxX, frame.left + frame.width);
+		maxY = std::min(maxY, frame.top + frame.height);
 	}
 	return RectD{ minX, minY, maxX - minX, maxY - minY };
 }

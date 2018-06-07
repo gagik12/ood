@@ -9,7 +9,6 @@ public:
 	double GetWidth()const;
 	double GetHeight()const;
 
-	std::vector<std::shared_ptr<IShape>> & GetShapes();
 	void AddShape(std::shared_ptr<IShape> const& shape);
 	void Draw(ICanvas& canvas);
 
