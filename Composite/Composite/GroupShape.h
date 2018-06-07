@@ -24,8 +24,6 @@ public:
 	std::shared_ptr<IShape> GetShapeAtIndex(size_t index) override;
 	void RemoveShapeAtIndex(size_t index) override;
 	void Draw(ICanvas & canvas) override;
-	void SetOutlineStyle(std::shared_ptr<IOutlineStyle> const& outlineStyle) override;
-	void SetFillStyle(std::shared_ptr<IStyle> const& fillStyle) override;
 private:
 	std::vector<std::shared_ptr<IShape>> m_shapes;
 

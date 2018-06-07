@@ -9,19 +9,9 @@ CShape::CShape()
 {
 }
 
-void CShape::SetOutlineStyle(std::shared_ptr<IOutlineStyle> const& outlineStyle)
-{
-	m_outlineStyle = outlineStyle;
-}
-
 std::shared_ptr<IOutlineStyle> CShape::GetOutlineStyle()const
 {
 	return m_outlineStyle;
-}
-
-void CShape::SetFillStyle(std::shared_ptr<IStyle> const& fillStyle)
-{
-	m_fillStyle = fillStyle;
 }
 
 std::shared_ptr<IStyle> CShape::GetFillStyle()const

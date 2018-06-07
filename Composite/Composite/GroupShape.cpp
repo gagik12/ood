@@ -36,11 +36,11 @@ RectD CGroupShape::GetFrame()
 		throw std::runtime_error("Coollection empty");
 	}
 
-	auto fisrtFrame = m_shapes.front()->GetFrame();
-	double minX = fisrtFrame.left;
-	double minY = fisrtFrame.top;
-	double maxX = fisrtFrame.left + fisrtFrame.width;
-	double maxY = fisrtFrame.top + fisrtFrame.height;
+	auto firstFrame = m_shapes.front()->GetFrame();
+	double minX = firstFrame.left;
+	double minY = firstFrame.top;
+	double maxX = firstFrame.left + firstFrame.width;
+	double maxY = firstFrame.top + firstFrame.height;
 
 	for (size_t i = 1; i < GetShapesCount(); ++i)
 	{
@@ -73,12 +73,12 @@ void CGroupShape::SetFrame(const RectD & rect)
 	auto currentFrame = GetFrame();
 	double frameScaleX = rect.width / currentFrame.width;
 	double frameScaleY = rect.height / currentFrame.height;
-	for (size_t i = 1; i < GetShapesCount(); ++i)
+	for (auto & shape : m_shapes)
 	{
-		auto shapeFrame = m_shapes[i]->GetFrame();
+		auto shapeFrame = shape->GetFrame();
 		double shapeOffsetX = shapeFrame.left - rect.left;
 		double shapeOffsetY = shapeFrame.height - rect.height;
-		m_shapes[i]->SetFrame({ 
+		shape->SetFrame({
 			rect.left + shapeOffsetX * frameScaleX,
 			rect.top + shapeOffsetY * frameScaleY,
 			rect.width * frameScaleX,
@@ -149,33 +149,5 @@ void CGroupShape::Draw(ICanvas & canvas)
 	for (auto const& shape : m_shapes)
 	{
 		shape->Draw(canvas);
-	}
-}
-
-void CGroupShape::SetOutlineStyle(std::shared_ptr<IOutlineStyle> const& outlineStyle)
-{
-	/*
-	можно теперь изменять конкретные свойства у всех фигур
-	m_groupOutlineStyle->SetColor(fillStyle->GetColor().get());
-	m_groupOutlineStyle->Enable(fillStyle->IsEnabled().get());
-	m_groupOutlineStyle->SetOutlineThikness(outlineStyle->GetOutlineThikness().get());
-	*/
-
-	for (auto & shape : m_shapes)
-	{
-		shape->SetOutlineStyle(outlineStyle);
-	}
-}
-
-void CGroupShape::SetFillStyle(std::shared_ptr<IStyle> const& fillStyle)
-{
-	/*
-	можно теперь изменять конкретные свойства у всех фигур
-	m_groupFillStyle->SetColor(fillStyle->GetColor().get());
-	m_groupFillStyle->Enable(fillStyle->IsEnabled().get());
-	*/
-	for (auto & shape : m_shapes)
-	{
-		shape->SetFillStyle(fillStyle);
 	}
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "ISlide.h"
+#include "GroupShape.h"
 
 class CSlide : public ISlide
 {
