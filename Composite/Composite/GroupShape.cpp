@@ -11,18 +11,18 @@ CGroupShape::CGroupShape()
 	};
 	groupFillStyleEnumerator([&](std::shared_ptr<IStyle>& style) {
 	});*/
-	FillStyleEnumerator fillStyleEnumerator = [this](std::function<void(std::shared_ptr<IStyle>&)> fun) {
+	FillStyleEnumerator fillStyleEnumerator = [this](std::function<void(IStyle&)> fun) {
 		for (auto && shape : m_shapes)
 		{
-			fun(shape->GetFillStyle());
+			fun(*shape->GetFillStyle());
 		}
 	};
 	m_groupFillStyle = std::make_shared<CGroupFillStyle>(fillStyleEnumerator);
 
-	OutlineStyleEnumerator outlineStyleEnumerator = [this](std::function<void(std::shared_ptr<IOutlineStyle>&)> fun) {
+	OutlineStyleEnumerator outlineStyleEnumerator = [this](std::function<void(IOutlineStyle&)> fun) {
 		for (auto && shape : m_shapes)
 		{
-			fun(shape->GetOutlineStyle());
+			fun(*shape->GetOutlineStyle());
 		}
 	};
 	m_groupOutlineStyle = std::make_shared<CGroupOutlineStyle>(outlineStyleEnumerator);

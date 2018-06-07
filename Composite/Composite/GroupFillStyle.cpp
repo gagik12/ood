@@ -11,12 +11,12 @@ optional<bool> CGroupFillStyle::IsEnabled()const
 {
 	optional<bool> isEnabled;
 
-	auto callback = [&](std::shared_ptr<IStyle>& style) {
+	auto callback = [&](IStyle& style) {
 		if (!isEnabled.is_initialized())
 		{
-			isEnabled = style->IsEnabled();
+			isEnabled = style.IsEnabled();
 		}
-		else if (isEnabled != style->IsEnabled())
+		else if (isEnabled != style.IsEnabled())
 		{
 			isEnabled = boost::none;
 		}
@@ -29,8 +29,8 @@ optional<bool> CGroupFillStyle::IsEnabled()const
 
 void CGroupFillStyle::Enable(bool enable)
 {
-	m_enumerator([&](std::shared_ptr<IStyle>& style) {
-		style->Enable(enable);
+	m_enumerator([&](IStyle& style) {
+		style.Enable(enable);
 	});
 }
 
@@ -38,12 +38,12 @@ optional<RGBAColor> CGroupFillStyle::GetColor()const
 {
 	optional<RGBAColor> color;
 
-	auto callback = [&](std::shared_ptr<IStyle>& style) {
+	auto callback = [&](IStyle& style) {
 		if (!color.is_initialized())
 		{
-			color = style->IsEnabled();
+			color = style.IsEnabled();
 		}
-		else if (color != style->GetColor())
+		else if (color != style.GetColor())
 		{
 			color = boost::none;
 		}
@@ -56,7 +56,7 @@ optional<RGBAColor> CGroupFillStyle::GetColor()const
 
 void CGroupFillStyle::SetColor(RGBAColor color)
 {
-	m_enumerator([&](std::shared_ptr<IStyle>& style) {
-		style->SetColor(color);
+	m_enumerator([&](IStyle& style) {
+		style.SetColor(color);
 	});
 }

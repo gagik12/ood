@@ -1,7 +1,7 @@
 #pragma once
 #include "IOutlineStyle.h"
 
-typedef std::function<void(std::function<void(std::shared_ptr<IOutlineStyle>&)>)> OutlineStyleEnumerator;
+typedef std::function<void(std::function<void(IOutlineStyle&)>)> OutlineStyleEnumerator;
 
 class CGroupOutlineStyle : public IOutlineStyle
 {
