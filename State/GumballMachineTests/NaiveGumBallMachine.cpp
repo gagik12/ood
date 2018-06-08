@@ -74,6 +74,8 @@ Returned 4 quarters
 		CheckGumballMachineInfo(machine, 6, "waiting for quarter");
 
 		machine.TurnCrank();
+		BOOST_CHECK(outputStream.is_equal(R"(You turned but there's no quarter
+)"));
 		CheckGumballMachineInfo(machine, 6, "waiting for quarter");
 	}
 
