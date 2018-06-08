@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="MultiGumballMachine">
+      <UniqueIdentifier>{b6abdc59-1ac1-4626-bad7-ef357764bbc6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -32,6 +35,9 @@
     </ClInclude>
     <ClInclude Include="NaiveGumBallMachine.h">
       <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiGumBallMachineWithState.h">
+      <Filter>MultiGumballMachine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -16,9 +16,10 @@ public:
 		Sold,			// Монетка выдана
 	};
 
-	CGumballMachine(unsigned count)
+	CGumballMachine(unsigned count, std::ostream & stream)
 		: m_count(count)
 		, m_state(count > 0 ? State::NoQuarter : State::SoldOut)
+		, m_stream(stream)
 	{
 	}
 
@@ -28,17 +29,17 @@ public:
 		switch (m_state)
 		{
 		case State::SoldOut:
-			cout << "You can't insert a quarter, the machine is sold out\n";
+			m_stream << "You can't insert a quarter, the machine is sold out\n";
 			break;
 		case State::NoQuarter:
-			cout << "You inserted a quarter\n";
+			AddQuarter();
 			m_state = State::HasQuarter;
 			break;
 		case State::HasQuarter:
-			cout << "You can't insert another quarter\n";
+			AddQuarter();
 			break;
 		case State::Sold:
-			cout << "Please wait, we're already giving you a gumball\n";
+			m_stream << "Please wait, we're already giving you a gumball\n";
 			break;
 		}
 	}
@@ -49,17 +50,29 @@ public:
 		switch (m_state)
 		{
 		case State::HasQuarter:
-			cout << "Quarter returned\n";
+			EjectAllQuarters();
 			m_state = State::NoQuarter;
 			break;
 		case State::NoQuarter:
-			cout << "You haven't inserted a quarter\n";
+			m_stream << "You haven't inserted a quarter\n";
 			break;
 		case State::Sold:
-			cout << "Sorry you already turned the crank\n";
+			m_stream << "Sorry you already turned the crank\n";
 			break;
 		case State::SoldOut:
-			cout << "You can't eject, you haven't inserted a quarter yet\n";
+			if (m_quarters != 0)
+			{
+				EjectAllQuarters();
+
+				if (m_count != 0)
+				{
+					m_state = State::NoQuarter;
+				}
+			}
+			else
+			{
+				m_stream << "You can't eject, you haven't inserted a quarter yet\n";
+			}
 			break;
 		}
 	}
@@ -70,18 +83,19 @@ public:
 		switch (m_state)
 		{
 		case State::SoldOut:
-			cout << "You turned but there's no gumballs\n";
+			m_stream << "You turned but there's no gumballs\n";
 			break;
 		case State::NoQuarter:
-			cout << "You turned but there's no quarter\n";
+			m_stream << "You turned but there's no quarter\n";
 			break;
 		case State::HasQuarter:
-			cout << "You turned...\n";
+			m_stream << "You turned...\n";
 			m_state = State::Sold;
+			ReleaseQuarter();
 			Dispense();
 			break;
 		case State::Sold:
-			cout << "Turning twice doesn't get you another gumball\n";
+			m_stream << "Turning twice doesn't get you another gumball\n";
 			break;
 		}
 	}
@@ -115,29 +129,59 @@ private:
 		switch (m_state)
 		{
 		case State::Sold:
-			cout << "A gumball comes rolling out the slot\n";
+			m_stream << "A gumball comes rolling out the slot\n";
 			--m_count;
 			if (m_count == 0)
 			{
-				cout << "Oops, out of gumballs\n";
+				m_stream << "Oops, out of gumballs\n";
 				m_state = State::SoldOut;
 			}
 			else
 			{
-				m_state = State::NoQuarter;
+				m_state = (m_quarters > 0) ? State::HasQuarter : State::NoQuarter;
 			}
 			break;
 		case State::NoQuarter:
-			cout << "You need to pay first\n";
+			m_stream << "You need to pay first\n";
 			break;
 		case State::SoldOut:
 		case State::HasQuarter:
-			cout << "No gumball dispensed\n";
+			m_stream << "No gumball dispensed\n";
 			break;
 		}
 	}
 
+	void AddQuarter()
+	{
+		if (m_quarters < MAX_COUNT_QUARTERS)
+		{
+			m_quarters++;
+			m_stream << "You inserted a quarter\n";
+		}
+		else
+		{
+			m_stream << "You can't insert another quarter\n";
+		}
+	}
+
+	void ReleaseQuarter()
+	{
+		if (m_quarters != 0)
+		{
+			--m_quarters;
+		}
+	}
+
+	void EjectAllQuarters()
+	{
+		m_stream << "Returned " << m_quarters << " quarters\n";
+		m_quarters = 0;
+	}
+
 	unsigned m_count;	// Количество шариков
+	unsigned m_quarters = 0;
+	const unsigned MAX_COUNT_QUARTERS = 5;
 	State m_state = State::SoldOut;
+	std::ostream & m_stream;
 };
 }
