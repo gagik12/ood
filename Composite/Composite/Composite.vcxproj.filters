@@ -19,6 +19,9 @@
     <Filter Include="Style">
       <UniqueIdentifier>{437fa868-40d6-42ee-90b1-ed4907dad580}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Slide">
+      <UniqueIdentifier>{9153003c-9d63-4a25-9da2-519f70e79355}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -37,12 +40,6 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="IDrawable.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="ISlide.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Slide.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="IShape.h">
@@ -93,6 +90,18 @@
     <ClInclude Include="GroupOutlineStyle.h">
       <Filter>Style</Filter>
     </ClInclude>
+    <ClInclude Include="ISlide.h">
+      <Filter>Slide</Filter>
+    </ClInclude>
+    <ClInclude Include="Slide.h">
+      <Filter>Slide</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractWindow.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -102,9 +111,6 @@
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="CommonTypes.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Slide.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="Triangle.cpp">
@@ -139,6 +145,15 @@
     </ClCompile>
     <ClCompile Include="GroupOutlineStyle.cpp">
       <Filter>Style</Filter>
+    </ClCompile>
+    <ClCompile Include="Slide.cpp">
+      <Filter>Slide</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractWindow.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

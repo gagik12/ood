@@ -9,6 +9,7 @@
 #include "GroupShape.h"
 #include "Canvas.h"
 #include "Slide.h"
+#include "Window.h"
 
 int main()
 {
@@ -21,12 +22,9 @@ int main()
 	house->InsertShape(rectangle, 1);
 	house->InsertShape(ellipse, 1);
 
-	CCanvas canvas(std::cout);
-	//house->Draw(canvas);
-
-	auto slide = std::make_shared<CSlide>(100, 200);
-	slide->AddShape(house);
-	slide->Draw(canvas);
+	CWindow window(*house);
+	window.ShowFixedSize({ 600, 600 });
+	window.EnterMainLoop();
     return 0;
 }
 
