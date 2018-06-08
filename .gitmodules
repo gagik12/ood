@@ -7,3 +7,12 @@
 [submodule "Factory/Painter/libs/glew"]
 	path = Factory/Painter/libs/glew
 	url = git@github.com:gagik12/glew.git
+[submodule "Composite/Composite/libs/glew"]
+	path = Composite/Composite/libs/glew
+	url = git@github.com:gagik12/glew.git
+[submodule "Composite/Composite/libs/glm"]
+	path = Composite/Composite/libs/glm
+	url = git@github.com:gagik12/glm.git
+[submodule "Composite/Composite/libs/SDL2"]
+	path = Composite/Composite/libs/SDL2
+	url = git@github.com:gagik12/SDL2.git
