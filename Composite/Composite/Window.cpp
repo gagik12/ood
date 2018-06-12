@@ -4,7 +4,7 @@
 
 CWindow::CWindow(IDrawable & drawableObject)
 	: m_drawableObject(drawableObject)
-	, m_canvas(std::make_unique<CCanvas>(std::cout))
+	, m_canvas(std::make_unique<CCanvas>())
 {
 }
 
@@ -21,19 +21,7 @@ void CWindow::OnUpdateWindow(float deltaSeconds)
 void CWindow::OnDrawWindow(const glm::ivec2 & size)
 {
 	SetupView(size);
-	//m_drawableObject.Draw(*m_canvas);
-	static const GLfloat LINE_WIDTH = 2;
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_LINE_SMOOTH);
-	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-	glLineWidth(LINE_WIDTH);
-	glBegin(GL_LINES);
-	glVertex2f(100, 222);
-	glVertex2f(200, 433);
-	glEnd();
-	glDisable(GL_LINE_SMOOTH);
+	m_drawableObject.Draw(*m_canvas);
 }
 
 void CWindow::SetupView(const glm::ivec2 & size)

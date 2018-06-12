@@ -2,44 +2,97 @@
 #include "Canvas.h"
 
 
-CCanvas::CCanvas(std::ostream & ostream)
-	: m_ostream(ostream)
+CCanvas::CCanvas()
 {
 }
 
-
-void CCanvas::SetLineColor(RGBAColor color)
+void CCanvas::SetFillColor(RGBColor const& color)
 {
-	m_ostream << "Color ( " << color << " )" << std::endl;
+	m_fillColor = color;
 }
 
-void CCanvas::BeginFill(RGBAColor color)
+void CCanvas::SetOutlineThickness(GLfloat thickness)
 {
-	m_ostream << "BeginFill" << std::endl;
-	m_ostream << "FillColor ( " << color << " )" << std::endl;
+	m_outlineThickness = thickness;
 }
 
-void CCanvas::EndFill() 
+void CCanvas::SetLineColor(RGBColor color)
 {
-	m_ostream << "EndFill" << std::endl;
+	m_lineColor = color;
 }
 
-void CCanvas::MoveTo(double x, double y)
+void CCanvas::DrawLine(CPoint const& from, CPoint const& to)
 {
-	m_ostream << "MoveTo ( " << x << ", " << y << " )" << std::endl;
+	glColor3f(GLfloat(m_lineColor.r / MAX_RGB_COLOR_VALUE), GLfloat(m_lineColor.g / MAX_RGB_COLOR_VALUE), GLfloat(m_lineColor.b / MAX_RGB_COLOR_VALUE));
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_LINE_SMOOTH);
+	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glLineWidth(m_outlineThickness);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glBegin(GL_LINES);
+		glVertex2f(from.GetX(), from.GetY());
+		glVertex2f(to.GetX(), to.GetY());
+	glEnd();
+	glDisable(GL_LINE_SMOOTH);
 }
 
-void CCanvas::LineTo(double x, double y)
+void CCanvas::DrawTriangle(CPoint const& point1, CPoint const& point2, CPoint const& point3)
 {
-	m_ostream  << "LineTo ( " << x << ", " << y << " )" << std::endl;
+	std::vector<CPoint> points = { point1, point2, point3 };
+	DrawOutline(points);
+	FillShape(points);
 }
 
-void CCanvas::DrawEllipse(double left, double top, double width, double height)
+void CCanvas::DrawRectangle(CPoint const& leftTop, double width, double height)
 {
-	m_ostream << "Draw ellipse center [" << left << ", " << top << "], Width: " << width << " height: " << height << std::endl;
+	CPoint rightTop(leftTop.GetX() + width, leftTop.GetY());
+	CPoint rightBottom(leftTop.GetX() + width, leftTop.GetY() + height);
+	CPoint leftBottom(leftTop.GetX(), leftTop.GetY() + height);
+	std::vector<CPoint> points = { leftTop, rightTop, rightBottom, leftBottom };
+	DrawOutline(points);
+	FillShape(points);
 }
 
-void CCanvas::SetOutlineThickness(double thickness)
+//http://www.opennet.ru/docs/RUS/qt3_prog/images/fig8.1.png
+void CCanvas::DrawEllipse(CPoint const& leftTop, float width, float height)
 {
-	m_ostream << "Outline Thickness ( " << thickness << " )" << std::endl;
+	std::vector<CPoint> points;
+	for (float angle = 0; angle <= 360; angle += 0.1f)
+	{
+		CPoint point(leftTop.GetX() + cosf(angle) * width, leftTop.GetY() + sinf(angle) * height);
+		points.push_back(point);
+	}
+	DrawOutline(points);
+	FillShape(points);
+}
+
+void CCanvas::DrawPoint(CPoint const& point)
+{
+	glColor3f(GLfloat(m_lineColor.r / MAX_RGB_COLOR_VALUE), GLfloat(m_lineColor.g / MAX_RGB_COLOR_VALUE), GLfloat(m_lineColor.b / MAX_RGB_COLOR_VALUE));
+	glPointSize(m_outlineThickness);
+	glBegin(GL_POINTS);
+		glVertex2f(point.GetX(), point.GetY());
+	glEnd();
+	glFlush();
+}
+
+void CCanvas::FillShape(std::vector<CPoint> const& points)
+{
+	glColor3f(GLfloat(m_fillColor.r / MAX_RGB_COLOR_VALUE), GLfloat(m_fillColor.g / MAX_RGB_COLOR_VALUE), GLfloat(m_fillColor.b / MAX_RGB_COLOR_VALUE));
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glBegin(GL_TRIANGLE_FAN);
+		for (auto const& point : points)
+		{
+			glVertex2f(point.GetX(), point.GetY());
+		}
+	glEnd();
+}
+
+void CCanvas::DrawOutline(std::vector<CPoint> const& points)
+{
+	for (size_t i = 0; i < points.size(); ++i)
+	{
+		DrawLine(points.at(i), points.at((i + 1) % points.size()));
+	}
 }

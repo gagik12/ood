@@ -10,8 +10,8 @@ public:
 	optional<bool> IsEnabled()const;
 	void Enable(bool enable);
 
-	optional<RGBAColor> GetColor()const;
-	void SetColor(RGBAColor color);
+	optional<RGBColor> GetColor()const;
+	void SetColor(RGBColor color);
 private:
 	FillStyleEnumerator & m_enumerator;
 };

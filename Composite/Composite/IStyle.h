@@ -10,8 +10,8 @@ public:
 	virtual optional<bool> IsEnabled()const = 0;
 	virtual void Enable(bool enable) = 0;
 
-	virtual optional<RGBAColor> GetColor()const = 0;
-	virtual void SetColor(RGBAColor color) = 0;
+	virtual optional<RGBColor> GetColor()const = 0;
+	virtual void SetColor(RGBColor color) = 0;
 
 	virtual ~IStyle() = default;
 };

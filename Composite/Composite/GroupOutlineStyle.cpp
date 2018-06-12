@@ -34,18 +34,14 @@ void CGroupOutlineStyle::Enable(bool enable)
 	});
 }
 
-optional<RGBAColor> CGroupOutlineStyle::GetColor()const
+optional<RGBColor> CGroupOutlineStyle::GetColor()const
 {
-	optional<RGBAColor> color;
+	optional<RGBColor> color = RGBColor{ 0, 0, 0 };
 
 	auto callback = [&](IOutlineStyle& style) {
 		if (!color.is_initialized())
 		{
-			color = style.IsEnabled();
-		}
-		else if (color != style.GetColor())
-		{
-			color = boost::none;
+			color = style.GetColor();
 		}
 	};
 
@@ -54,7 +50,7 @@ optional<RGBAColor> CGroupOutlineStyle::GetColor()const
 	return color;
 }
 
-void CGroupOutlineStyle::SetColor(RGBAColor color)
+void CGroupOutlineStyle::SetColor(RGBColor color)
 {
 	m_enumerator([&](IOutlineStyle& style) {
 		style.SetColor(color);

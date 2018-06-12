@@ -2,7 +2,7 @@
 #include "OutlineStyle.h"
 
 
-COutlineStyle::COutlineStyle(bool enabled, RGBAColor color, float thickness)
+COutlineStyle::COutlineStyle(bool enabled, RGBColor color, float thickness)
 	: m_enabled(enabled)
 	, m_color(color)
 	, m_thickness(thickness)
@@ -19,12 +19,12 @@ void COutlineStyle::Enable(bool enable)
 	m_enabled = enable;
 }
 
-optional<RGBAColor> COutlineStyle::GetColor()const
+optional<RGBColor> COutlineStyle::GetColor()const
 {
 	return m_color;
 }
 
-void COutlineStyle::SetColor(RGBAColor color)
+void COutlineStyle::SetColor(RGBColor color)
 {
 	m_color = color;
 }

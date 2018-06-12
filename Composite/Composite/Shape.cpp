@@ -4,8 +4,8 @@
 #include "OutlineStyle.h"
 
 CShape::CShape()
-	: m_fillStyle(std::make_shared<CFillStyle>(true, 255))
-	, m_outlineStyle(std::make_shared<COutlineStyle>(true, 255, 10.f))
+	: m_fillStyle(std::make_shared<CFillStyle>(true, RGBColor{255, 0, 0}))
+	, m_outlineStyle(std::make_shared<COutlineStyle>(true, RGBColor{255, 255, 22}, 2.f))
 {
 }
 
@@ -31,21 +31,9 @@ std::shared_ptr<const IGroupShape> CShape::GetGroup() const
 
 void CShape::Draw(ICanvas & canvas)
 {
-	if (m_outlineStyle->IsEnabled())
-	{
-		canvas.SetOutlineThickness(m_outlineStyle->GetOutlineThikness().get());
-		canvas.SetLineColor(m_outlineStyle->GetColor().get());
-	}
-
-	if (m_fillStyle->IsEnabled())
-	{
-		canvas.BeginFill(m_fillStyle->GetColor().get());
-	}
+	canvas.SetOutlineThickness(m_outlineStyle->IsEnabled() ? m_outlineStyle->GetOutlineThikness().get() : 0);
+	canvas.SetLineColor(m_outlineStyle->IsEnabled() ? m_outlineStyle->GetColor().get() : RGBColor{ 0, 0, 0 });
+	canvas.SetFillColor(m_fillStyle->IsEnabled() ? m_fillStyle->GetColor().get() : RGBColor{0, 0, 0});
 
 	DrawBehavior(canvas);
-
-	if (m_fillStyle->IsEnabled())
-	{
-		canvas.EndFill();
-	}
 }

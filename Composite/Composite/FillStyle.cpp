@@ -2,7 +2,7 @@
 #include "FillStyle.h"
 
 
-CFillStyle::CFillStyle(bool enabled, RGBAColor color)
+CFillStyle::CFillStyle(bool enabled, RGBColor color)
 	: m_enabled(enabled)
 	, m_color(color)
 {
@@ -18,12 +18,12 @@ void CFillStyle::Enable(bool enable)
 	m_enabled = enable;
 }
 
-optional<RGBAColor> CFillStyle::GetColor()const
+optional<RGBColor> CFillStyle::GetColor()const
 {
 	return m_color;
 }
 
-void CFillStyle::SetColor(RGBAColor color)
+void CFillStyle::SetColor(RGBColor color)
 {
 	m_color = color;
 }

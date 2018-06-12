@@ -35,8 +35,5 @@ void CTriangle::SetFrame(const RectD & rect)
 
 void CTriangle::DrawBehavior(ICanvas & canvas)const
 {
-	canvas.MoveTo(m_point1.GetX(), m_point1.GetY());
-	canvas.LineTo(m_point2.GetX(), m_point2.GetY());
-	canvas.LineTo(m_point3.GetX(), m_point3.GetY());
-	canvas.LineTo(m_point1.GetX(), m_point1.GetY());
+	canvas.DrawTriangle(m_point1, m_point2, m_point3);
 }

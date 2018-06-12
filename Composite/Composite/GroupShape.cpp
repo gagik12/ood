@@ -3,14 +3,6 @@
 
 CGroupShape::CGroupShape()
 {
-	/*auto groupFillStyleEnumerator = [this](std::function<void(std::shared_ptr<IStyle>&)> fun) {
-		for (auto && shape : m_shapes)
-		{
-			//fun(shape->GetFillStyle());
-		}
-	};
-	groupFillStyleEnumerator([&](std::shared_ptr<IStyle>& style) {
-	});*/
 	FillStyleEnumerator fillStyleEnumerator = [this](std::function<void(IStyle&)> fun) {
 		for (auto && shape : m_shapes)
 		{
@@ -48,8 +40,8 @@ RectD CGroupShape::GetFrame()
 		minX = std::min(minX, frame.left);
 		minY = std::min(minX, frame.top);
 
-		maxX = std::min(maxX, frame.left + frame.width);
-		maxY = std::min(maxY, frame.top + frame.height);
+		maxX = std::max(maxX, frame.left + frame.width);
+		maxY = std::max(maxY, frame.top + frame.height);
 	}
 	return RectD{ minX, minY, maxX - minX, maxY - minY };
 }

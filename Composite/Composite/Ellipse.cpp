@@ -26,5 +26,5 @@ void CEllipse::DrawBehavior(ICanvas & canvas)const
 {
 	double width = 2 * m_horizontalRadius;
 	double height = 2 * m_verticalRadius;
-	canvas.DrawEllipse(m_center.GetX() - m_horizontalRadius, m_center.GetY() - m_verticalRadius, width, height);
+	canvas.DrawEllipse(m_center, width, height);
 }

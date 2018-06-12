@@ -23,9 +23,5 @@ void CRectangle::SetFrame(const RectD & rect)
 
 void CRectangle::DrawBehavior(ICanvas & canvas)const
 {
-	canvas.MoveTo(m_leftTop.GetX(), m_leftTop.GetY());
-	canvas.LineTo(m_leftTop.GetX() + m_width, m_leftTop.GetY());
-	canvas.LineTo(m_leftTop.GetX() + m_width, m_leftTop.GetY() + m_height);
-	canvas.LineTo(m_leftTop.GetX(), m_leftTop.GetY() + m_height);
-	canvas.LineTo(m_leftTop.GetX(), m_leftTop.GetY());
+	canvas.DrawRectangle(m_leftTop, m_width, m_height);
 }

@@ -10,8 +10,8 @@ public:
 	optional<bool> IsEnabled()const;
 	void Enable(bool enable);
 
-	optional<RGBAColor> GetColor()const;
-	void SetColor(RGBAColor color);
+	optional<RGBColor> GetColor()const;
+	void SetColor(RGBColor color);
 
 	optional<float> GetOutlineThikness() const;
 	void SetOutlineThikness(float thikness);

@@ -159,6 +159,7 @@
     <ClInclude Include="OutlineStyle.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="RGBColor.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Slide.h" />
     <ClInclude Include="stdafx.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="OutlineStyle.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="RGBColor.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Slide.cpp" />
     <ClCompile Include="stdafx.cpp">

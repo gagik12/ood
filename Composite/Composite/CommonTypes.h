@@ -1,5 +1,5 @@
 #pragma once
-
+#include "RGBColor.h"
 template <typename T>
 struct Rect
 {
@@ -10,4 +10,5 @@ struct Rect
 };
 
 typedef Rect<double> RectD;
-typedef uint32_t RGBAColor;
+
+const int MAX_RGB_COLOR_VALUE = 255;

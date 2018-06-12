@@ -34,18 +34,14 @@ void CGroupFillStyle::Enable(bool enable)
 	});
 }
 
-optional<RGBAColor> CGroupFillStyle::GetColor()const
+optional<RGBColor> CGroupFillStyle::GetColor()const
 {
-	optional<RGBAColor> color;
+	optional<RGBColor> color = RGBColor{0, 0, 0};
 
 	auto callback = [&](IStyle& style) {
 		if (!color.is_initialized())
 		{
-			color = style.IsEnabled();
-		}
-		else if (color != style.GetColor())
-		{
-			color = boost::none;
+			color = style.GetColor();
 		}
 	};
 
@@ -54,7 +50,7 @@ optional<RGBAColor> CGroupFillStyle::GetColor()const
 	return color;
 }
 
-void CGroupFillStyle::SetColor(RGBAColor color)
+void CGroupFillStyle::SetColor(RGBColor color)
 {
 	m_enumerator([&](IStyle& style) {
 		style.SetColor(color);

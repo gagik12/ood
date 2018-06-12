@@ -4,15 +4,15 @@
 class CFillStyle : public IStyle
 {
 public:
-	CFillStyle(bool enabled, RGBAColor color);
+	CFillStyle(bool enabled, RGBColor color);
 
 	optional<bool> IsEnabled()const;
 	void Enable(bool enable);
 
-	optional<RGBAColor> GetColor()const;
-	void SetColor(RGBAColor color);
+	optional<RGBColor> GetColor()const;
+	void SetColor(RGBColor color);
 private:
 	bool m_enabled;
-	RGBAColor m_color;
+	RGBColor m_color;
 };
 
