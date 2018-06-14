@@ -2,11 +2,11 @@
 class CPoint
 {
 public:
-	CPoint(double x, double y);
-	double GetX() const;
-	double GetY() const;
+	CPoint(float x, float y);
+	float GetX() const;
+	float GetY() const;
 private:
-	double m_x;
-	double m_y;
+	float m_x;
+	float m_y;
 };
 

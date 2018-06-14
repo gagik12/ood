@@ -9,6 +9,6 @@ struct Rect
 	T height;
 };
 
-typedef Rect<double> RectD;
+typedef Rect<float> RectD;
 
-const int MAX_RGB_COLOR_VALUE = 255;
+const float MAX_RGB_COLOR_VALUE = 255.f;

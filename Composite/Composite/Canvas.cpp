@@ -44,7 +44,7 @@ void CCanvas::DrawTriangle(CPoint const& point1, CPoint const& point2, CPoint co
 	FillShape(points);
 }
 
-void CCanvas::DrawRectangle(CPoint const& leftTop, double width, double height)
+void CCanvas::DrawRectangle(CPoint const& leftTop, float width, float height)
 {
 	CPoint rightTop(leftTop.GetX() + width, leftTop.GetY());
 	CPoint rightBottom(leftTop.GetX() + width, leftTop.GetY() + height);
@@ -54,7 +54,6 @@ void CCanvas::DrawRectangle(CPoint const& leftTop, double width, double height)
 	FillShape(points);
 }
 
-//http://www.opennet.ru/docs/RUS/qt3_prog/images/fig8.1.png
 void CCanvas::DrawEllipse(CPoint const& leftTop, float width, float height)
 {
 	std::vector<CPoint> points;
@@ -69,7 +68,7 @@ void CCanvas::DrawEllipse(CPoint const& leftTop, float width, float height)
 
 void CCanvas::DrawPoint(CPoint const& point)
 {
-	glColor3f(GLfloat(m_lineColor.r / MAX_RGB_COLOR_VALUE), GLfloat(m_lineColor.g / MAX_RGB_COLOR_VALUE), GLfloat(m_lineColor.b / MAX_RGB_COLOR_VALUE));
+	glColor3f(m_lineColor.r / MAX_RGB_COLOR_VALUE, m_lineColor.g / MAX_RGB_COLOR_VALUE, m_lineColor.b / MAX_RGB_COLOR_VALUE);
 	glPointSize(m_outlineThickness);
 	glBegin(GL_POINTS);
 		glVertex2f(point.GetX(), point.GetY());
@@ -79,7 +78,7 @@ void CCanvas::DrawPoint(CPoint const& point)
 
 void CCanvas::FillShape(std::vector<CPoint> const& points)
 {
-	glColor3f(GLfloat(m_fillColor.r / MAX_RGB_COLOR_VALUE), GLfloat(m_fillColor.g / MAX_RGB_COLOR_VALUE), GLfloat(m_fillColor.b / MAX_RGB_COLOR_VALUE));
+	glColor3f(m_fillColor.r / MAX_RGB_COLOR_VALUE, GLfloat(m_fillColor.g / MAX_RGB_COLOR_VALUE), GLfloat(m_fillColor.b / MAX_RGB_COLOR_VALUE));
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glBegin(GL_TRIANGLE_FAN);
 		for (auto const& point : points)

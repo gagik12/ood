@@ -13,7 +13,7 @@ public:
 
 	void DrawEllipse(CPoint const& leftTop, float width, float height) override;
 	void DrawTriangle(CPoint const& point1, CPoint const& point2, CPoint const& point3) override;
-	void DrawRectangle(CPoint const& leftTop, double width, double height) override;
+	void DrawRectangle(CPoint const& leftTop, float width, float height) override;
 private:
 	void DrawPoint(CPoint const& point) override;
 	void DrawLine(CPoint const& from, CPoint const& to) override;

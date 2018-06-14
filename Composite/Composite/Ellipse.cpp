@@ -2,7 +2,7 @@
 #include "Ellipse.h"
 
 
-CEllipse::CEllipse(CPoint const& center, double horizontalRadius, double verticalRadius)
+CEllipse::CEllipse(CPoint const& center, float horizontalRadius, float verticalRadius)
 	: m_center(center)
 	, m_horizontalRadius(horizontalRadius)
 	, m_verticalRadius(verticalRadius)
@@ -24,7 +24,7 @@ void CEllipse::SetFrame(const RectD & rect)
 
 void CEllipse::DrawBehavior(ICanvas & canvas)const
 {
-	double width = 2 * m_horizontalRadius;
-	double height = 2 * m_verticalRadius;
+	float width = 2 * m_horizontalRadius;
+	float height = 2 * m_verticalRadius;
 	canvas.DrawEllipse(m_center, width, height);
 }

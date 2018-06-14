@@ -29,10 +29,10 @@ RectD CGroupShape::GetFrame()
 	}
 
 	auto firstFrame = m_shapes.front()->GetFrame();
-	double minX = firstFrame.left;
-	double minY = firstFrame.top;
-	double maxX = firstFrame.left + firstFrame.width;
-	double maxY = firstFrame.top + firstFrame.height;
+	float minX = firstFrame.left;
+	float minY = firstFrame.top;
+	float maxX = firstFrame.left + firstFrame.width;
+	float maxY = firstFrame.top + firstFrame.height;
 
 	for (size_t i = 1; i < GetShapesCount(); ++i)
 	{
@@ -49,13 +49,13 @@ RectD CGroupShape::GetFrame()
 void CGroupShape::SetFrame(const RectD & rect)
 {
 	auto currentFrame = GetFrame();
-	double frameScaleX = rect.width / currentFrame.width;
-	double frameScaleY = rect.height / currentFrame.height;
+	float frameScaleX = rect.width / currentFrame.width;
+	float frameScaleY = rect.height / currentFrame.height;
 	for (auto & shape : m_shapes)
 	{
 		auto shapeFrame = shape->GetFrame();
-		double shapeOffsetX = shapeFrame.left - rect.left;
-		double shapeOffsetY = shapeFrame.height - rect.height;
+		float shapeOffsetX = shapeFrame.left - rect.left;
+		float shapeOffsetY = shapeFrame.height - rect.height;
 		shape->SetFrame({
 			rect.left + shapeOffsetX * frameScaleX,
 			rect.top + shapeOffsetY * frameScaleY,

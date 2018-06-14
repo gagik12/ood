@@ -2,7 +2,7 @@
 #include "Rectangle.h"
 
 
-CRectangle::CRectangle(CPoint const& leftTop, double width, double height)
+CRectangle::CRectangle(CPoint const& leftTop, float width, float height)
 	: m_leftTop(leftTop)
 	, m_width(width)
 	, m_height(height)

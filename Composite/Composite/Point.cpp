@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "Point.h"
 
-CPoint::CPoint(double x, double y)
+CPoint::CPoint(float x, float y)
 	: m_x(x)
 	, m_y(y)
 {
 }
 
-double CPoint::GetX() const
+float CPoint::GetX() const
 {
 	return m_x;
 }
 
-double CPoint::GetY() const
+float CPoint::GetY() const
 {
 	return m_y;
 }
