@@ -72,9 +72,9 @@ std::shared_ptr<ISlide> CreatePicture()
 
 int main()
 {	
-	auto house = CreatePicture();
+	auto picture = CreatePicture();
 
-	CWindow window(*house);
+	CWindow window(*picture);
 	window.ShowFixedSize({ 600, 600 });
 	window.EnterMainLoop();
     return 0;
