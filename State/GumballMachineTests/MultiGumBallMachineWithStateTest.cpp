@@ -98,4 +98,30 @@ Returned 2 quarters
 )"));
 		CheckGumballMachineInfo(machine, 0, "sold out");
 	}
+	BOOST_AUTO_TEST_SUITE(refill_machine)
+		BOOST_AUTO_TEST_CASE(can_refill_from_solid_out_state)
+		{
+			CMultiGumballMachine machine(0, outputStream);
+			machine.Refill(4);
+			CheckGumballMachineInfo(machine, 4, "waiting for quarter");
+			BOOST_CHECK(outputStream.is_equal("Added: 4\n"));
+		}
+
+		BOOST_AUTO_TEST_CASE(can_refill_from_has_quarter_state)
+		{
+			CMultiGumballMachine machine(2, outputStream);
+			machine.InsertQuarter();
+			machine.Refill(4);
+			CheckGumballMachineInfo(machine, 6, "waiting for turn of crank");
+			BOOST_CHECK(outputStream.is_equal("You inserted a quarter\nAdded: 4\n"));
+		}
+
+		BOOST_AUTO_TEST_CASE(can_refill_from_no_quarter_state)
+		{
+			CMultiGumballMachine machine(2, outputStream);
+			machine.Refill(4);
+			CheckGumballMachineInfo(machine, 6, "waiting for quarter");
+			BOOST_CHECK(outputStream.is_equal("Added: 4\n"));
+		}
+	BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

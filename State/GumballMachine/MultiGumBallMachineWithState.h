@@ -11,6 +11,7 @@ namespace with_state_multi
 		virtual void EjectQuarter() = 0;
 		virtual void TurnCrank() = 0;
 		virtual void Dispense() = 0;
+		virtual void Refill(size_t count) = 0;
 		virtual std::string ToString()const = 0;
 		virtual ~IState() = default;
 	};
@@ -29,6 +30,9 @@ namespace with_state_multi
 		virtual void SetNoQuarterState() = 0;
 		virtual void SetSoldState() = 0;
 		virtual void SetHasQuarterState() = 0;
+
+		virtual void Refill(size_t count) = 0;
+		virtual void AddBall(size_t count) = 0;
 
 		virtual ~IGumballMachine() = default;
 	};
@@ -74,6 +78,12 @@ namespace with_state_multi
 				}
 			}
 		}
+
+		void Refill(size_t count) override
+		{
+			m_stream << "This operation is not available\n";
+		}
+
 		std::string ToString() const override
 		{
 			return "delivering a gumball";
@@ -119,6 +129,18 @@ namespace with_state_multi
 		{
 			m_stream << "No gumball dispensed\n";
 		}
+		void Refill(size_t count) override
+		{
+			m_gumballMachine.AddBall(count);
+			if (m_gumballMachine.IsContainQuarters())
+			{
+				m_gumballMachine.SetHasQuarterState();
+			}
+			else
+			{
+				m_gumballMachine.SetNoQuarterState();
+			}
+		}
 		std::string ToString() const override
 		{
 			return "sold out";
@@ -154,6 +176,10 @@ namespace with_state_multi
 		{
 			m_stream << "No gumball dispensed\n";
 		}
+		void Refill(size_t count) override
+		{
+			m_gumballMachine.AddBall(count);
+		}
 		std::string ToString() const override
 		{
 			return "waiting for turn of crank";
@@ -187,6 +213,10 @@ namespace with_state_multi
 		void Dispense() override
 		{
 			m_stream << "You need to pay first\n";
+		}
+		void Refill(size_t count) override
+		{
+			m_gumballMachine.AddBall(count);
 		}
 		std::string ToString() const override
 		{
@@ -222,6 +252,11 @@ namespace with_state_multi
 		{
 			m_state->InsertQuarter();
 		}
+		void Refill(size_t count)
+		{
+			m_state->Refill(count);
+		}
+
 		void TurnCrank()
 		{
 			m_state->TurnCrank();
@@ -252,6 +287,12 @@ Machine is %3%
 			}
 		}
 
+		void AddBall(size_t count) override
+		{
+			m_count += count;
+			m_stream << "Added: " << count << std::endl;
+		}
+
 		void ReleaseQuarter() override
 		{
 			if (IsContainQuarters())
@@ -275,6 +316,7 @@ Machine is %3%
 		{
 			return m_count;
 		}
+
 		void ReleaseBall() override
 		{
 			if (m_count != 0)
@@ -283,18 +325,22 @@ Machine is %3%
 				--m_count;
 			}
 		}
+
 		void SetSoldOutState() override
 		{
 			m_state = &m_soldOutState;
 		}
+
 		void SetNoQuarterState() override
 		{
 			m_state = &m_noQuarterState;
 		}
+
 		void SetSoldState() override
 		{
 			m_state = &m_soldState;
 		}
+
 		void SetHasQuarterState() override
 		{
 			m_state = &m_hasQuarterState;
