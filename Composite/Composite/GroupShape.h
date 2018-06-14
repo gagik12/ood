@@ -12,9 +12,11 @@ public:
 	RectD GetFrame() override;
 	void SetFrame(const RectD & rect) override;
 
-	std::shared_ptr<IOutlineStyle> GetOutlineStyle()const override;
+	std::shared_ptr<IOutlineStyle> GetOutlineStyle() override;
+	std::shared_ptr<const IOutlineStyle> GetOutlineStyle() const override;
 
-	std::shared_ptr<IStyle> GetFillStyle()const override;
+	std::shared_ptr<IStyle> GetFillStyle() override;
+	std::shared_ptr<const IStyle> GetFillStyle()const override;
 
 	std::shared_ptr<IGroupShape> GetGroup() override;
 	std::shared_ptr<const IGroupShape> GetGroup() const override;
@@ -27,7 +29,7 @@ public:
 private:
 	std::vector<std::shared_ptr<IShape>> m_shapes;
 
-	std::shared_ptr<CGroupFillStyle>  m_groupFillStyle;
-	std::shared_ptr<CGroupOutlineStyle>  m_groupOutlineStyle;
+	std::shared_ptr<IStyle> m_groupFillStyle;
+	std::shared_ptr<IOutlineStyle> m_groupOutlineStyle;
 };
 

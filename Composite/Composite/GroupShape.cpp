@@ -65,13 +65,22 @@ void CGroupShape::SetFrame(const RectD & rect)
 	}
 }
 
-
-std::shared_ptr<IOutlineStyle> CGroupShape::GetOutlineStyle()const
+std::shared_ptr<IOutlineStyle> CGroupShape::GetOutlineStyle()
 {
 	return m_groupOutlineStyle;
 }
 
-std::shared_ptr<IStyle> CGroupShape::GetFillStyle()const
+std::shared_ptr<const IOutlineStyle> CGroupShape::GetOutlineStyle() const
+{
+	return m_groupOutlineStyle;
+}
+
+std::shared_ptr<IStyle> CGroupShape::GetFillStyle()
+{
+	return m_groupFillStyle;
+}
+
+std::shared_ptr<const IStyle> CGroupShape::GetFillStyle() const
 {
 	return m_groupFillStyle;
 }

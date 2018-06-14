@@ -7,14 +7,14 @@ class CGroupOutlineStyle : public IOutlineStyle
 {
 public:
 	CGroupOutlineStyle(OutlineStyleEnumerator & enumerator);
-	optional<bool> IsEnabled()const;
-	void Enable(bool enable);
+	optional<bool> IsEnabled()const override;
+	void Enable(bool enable) override;
 
-	optional<RGBColor> GetColor()const;
-	void SetColor(RGBColor color);
+	optional<RGBColor> GetColor()const override;
+	void SetColor(RGBColor color) override;
 
-	optional<float> GetOutlineThikness() const;
-	void SetOutlineThikness(float thikness);
+	optional<float> GetOutlineThikness() const override;
+	void SetOutlineThikness(float thikness) override;
 private:
 	OutlineStyleEnumerator & m_enumerator;
 };

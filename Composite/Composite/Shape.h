@@ -7,9 +7,11 @@ class CShape : public IShape
 public:
 	CShape();
 
-	std::shared_ptr<IOutlineStyle> GetOutlineStyle()const override;
+	std::shared_ptr<IOutlineStyle> GetOutlineStyle() override;
+	std::shared_ptr<const IOutlineStyle> GetOutlineStyle() const override;
 
-	std::shared_ptr<IStyle> GetFillStyle()const override;
+	std::shared_ptr<IStyle> GetFillStyle() override;
+	std::shared_ptr<const IStyle> GetFillStyle()const override;
 
 	std::shared_ptr<IGroupShape> GetGroup() override;
 	std::shared_ptr<const IGroupShape> GetGroup() const override;

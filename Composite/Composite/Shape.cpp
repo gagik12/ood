@@ -9,12 +9,22 @@ CShape::CShape()
 {
 }
 
-std::shared_ptr<IOutlineStyle> CShape::GetOutlineStyle()const
+std::shared_ptr<IOutlineStyle> CShape::GetOutlineStyle()
 {
 	return m_outlineStyle;
 }
 
-std::shared_ptr<IStyle> CShape::GetFillStyle()const
+std::shared_ptr<const IOutlineStyle> CShape::GetOutlineStyle() const
+{
+	return m_outlineStyle;
+}
+
+std::shared_ptr<IStyle> CShape::GetFillStyle()
+{
+	return m_fillStyle;
+}
+
+std::shared_ptr<const IStyle> CShape::GetFillStyle() const
 {
 	return m_fillStyle;
 }

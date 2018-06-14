@@ -6,11 +6,11 @@ class CSlide : public ISlide
 {
 public:
 	CSlide(double width, double height);
-	double GetWidth()const;
-	double GetHeight()const;
+	double GetWidth()const override;
+	double GetHeight()const override;
 
-	void AddShape(std::shared_ptr<IShape> const& shape);
-	void Draw(ICanvas& canvas);
+	void AddShape(std::shared_ptr<IShape> const& shape) override;
+	void Draw(ICanvas& canvas) override;
 
 private:
 	double m_width;
