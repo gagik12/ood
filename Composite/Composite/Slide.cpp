@@ -24,7 +24,7 @@ void CSlide::AddShape(std::shared_ptr<IShape> const& shape)
 	m_shapes.push_back(shape);
 }
 
-void CSlide::Draw(ICanvas& canvas)
+void CSlide::Draw(ICanvas& canvas) const
 {
 	for (auto const& shape : m_shapes)
 	{

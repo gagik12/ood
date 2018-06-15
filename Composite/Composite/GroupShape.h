@@ -25,7 +25,7 @@ public:
 	void InsertShape(const std::shared_ptr<IShape> & shape, size_t position = std::numeric_limits<size_t>::max()) override;
 	std::shared_ptr<IShape> GetShapeAtIndex(size_t index) override;
 	void RemoveShapeAtIndex(size_t index) override;
-	void Draw(ICanvas & canvas) override;
+	void Draw(ICanvas & canvas)const override;
 private:
 	std::vector<std::shared_ptr<IShape>> m_shapes;
 

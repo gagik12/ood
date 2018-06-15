@@ -58,6 +58,8 @@ void CGroupShape::SetFrame(const RectD & rect)
 			, shapeFrame.width * rect.width / oldFrame.width
 			, shapeFrame.height * rect.height / oldFrame.height });
 	}
+
+
 }
 
 std::shared_ptr<IOutlineStyle> CGroupShape::GetOutlineStyle()
@@ -126,7 +128,7 @@ void CGroupShape::RemoveShapeAtIndex(size_t index)
 	m_shapes.erase(m_shapes.begin() + index);
 }
 
-void CGroupShape::Draw(ICanvas & canvas)
+void CGroupShape::Draw(ICanvas & canvas) const
 {
 	for (auto const& shape : m_shapes)
 	{

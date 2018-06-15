@@ -39,7 +39,7 @@ std::shared_ptr<const IGroupShape> CShape::GetGroup() const
 	return nullptr;
 }
 
-void CShape::Draw(ICanvas & canvas)
+void CShape::Draw(ICanvas & canvas) const
 {
 	canvas.SetOutlineThickness(m_outlineStyle->IsEnabled() ? m_outlineStyle->GetOutlineThikness().get() : 0);
 	canvas.SetLineColor(m_outlineStyle->IsEnabled() ? m_outlineStyle->GetColor().get() : RGBColor{ 0, 0, 0 });

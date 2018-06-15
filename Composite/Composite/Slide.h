@@ -10,7 +10,7 @@ public:
 	double GetHeight()const override;
 
 	void AddShape(std::shared_ptr<IShape> const& shape) override;
-	void Draw(ICanvas& canvas) override;
+	void Draw(ICanvas& canvas) const override;
 
 private:
 	double m_width;
