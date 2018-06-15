@@ -4,14 +4,13 @@
 
 namespace with_state_multi
 {
-
 	struct IState
 	{
 		virtual void InsertQuarter() = 0;
 		virtual void EjectQuarter() = 0;
 		virtual void TurnCrank() = 0;
 		virtual void Dispense() = 0;
-		virtual void Refill(size_t count) = 0;
+		virtual void Refill(unsigned count) = 0;
 		virtual std::string ToString()const = 0;
 		virtual ~IState() = default;
 	};
@@ -23,7 +22,7 @@ namespace with_state_multi
 
 		virtual void AddQuarter() = 0;
 		virtual void ReleaseQuarter() = 0;
-		virtual bool IsContainQuarters()const = 0;
+		virtual bool ContainsQuarters()const = 0;
 		virtual void EjectAllQuarters() = 0;
 
 		virtual void SetSoldOutState() = 0;
@@ -31,8 +30,8 @@ namespace with_state_multi
 		virtual void SetSoldState() = 0;
 		virtual void SetHasQuarterState() = 0;
 
-		virtual void Refill(size_t count) = 0;
-		virtual void AddBall(size_t count) = 0;
+		virtual void Refill(unsigned count) = 0;
+		virtual void AddBall(unsigned count) = 0;
 
 		virtual ~IGumballMachine() = default;
 	};
@@ -68,7 +67,7 @@ namespace with_state_multi
 			}
 			else
 			{
-				if (m_gumballMachine.IsContainQuarters())
+				if (m_gumballMachine.ContainsQuarters())
 				{
 					m_gumballMachine.SetHasQuarterState();
 				}
@@ -79,7 +78,7 @@ namespace with_state_multi
 			}
 		}
 
-		void Refill(size_t count) override
+		void Refill(unsigned count) override
 		{
 			m_stream << "This operation is not available\n";
 		}
@@ -107,7 +106,7 @@ namespace with_state_multi
 		}
 		void EjectQuarter() override
 		{
-			if (m_gumballMachine.IsContainQuarters())
+			if (m_gumballMachine.ContainsQuarters())
 			{
 				m_gumballMachine.EjectAllQuarters();
 				
@@ -129,10 +128,10 @@ namespace with_state_multi
 		{
 			m_stream << "No gumball dispensed\n";
 		}
-		void Refill(size_t count) override
+		void Refill(unsigned count) override
 		{
 			m_gumballMachine.AddBall(count);
-			if (m_gumballMachine.IsContainQuarters())
+			if (m_gumballMachine.ContainsQuarters())
 			{
 				m_gumballMachine.SetHasQuarterState();
 			}
@@ -165,7 +164,14 @@ namespace with_state_multi
 		void EjectQuarter() override
 		{
 			m_gumballMachine.EjectAllQuarters();
-			m_gumballMachine.SetNoQuarterState();
+			if (m_gumballMachine.GetBallCount() == 0)
+			{
+				m_gumballMachine.SetSoldOutState();
+			}
+			else
+			{
+				m_gumballMachine.SetNoQuarterState();
+			}
 		}
 		void TurnCrank() override
 		{
@@ -176,7 +182,7 @@ namespace with_state_multi
 		{
 			m_stream << "No gumball dispensed\n";
 		}
-		void Refill(size_t count) override
+		void Refill(unsigned count) override
 		{
 			m_gumballMachine.AddBall(count);
 		}
@@ -214,7 +220,7 @@ namespace with_state_multi
 		{
 			m_stream << "You need to pay first\n";
 		}
-		void Refill(size_t count) override
+		void Refill(unsigned count) override
 		{
 			m_gumballMachine.AddBall(count);
 		}
@@ -252,7 +258,7 @@ namespace with_state_multi
 		{
 			m_state->InsertQuarter();
 		}
-		void Refill(size_t count)
+		void Refill(unsigned count)
 		{
 			m_state->Refill(count);
 		}
@@ -287,7 +293,7 @@ Machine is %3%
 			}
 		}
 
-		void AddBall(size_t count) override
+		void AddBall(unsigned count) override
 		{
 			m_count += count;
 			m_stream << "Added: " << count << std::endl;
@@ -295,13 +301,13 @@ Machine is %3%
 
 		void ReleaseQuarter() override
 		{
-			if (IsContainQuarters())
+			if (ContainsQuarters())
 			{
 				--m_quarter;
 			}
 		}
 
-		bool IsContainQuarters()const override
+		bool ContainsQuarters()const override
 		{
 			return m_quarter != 0;
 		}
