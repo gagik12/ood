@@ -48,20 +48,15 @@ RectD CGroupShape::GetFrame()
 
 void CGroupShape::SetFrame(const RectD & rect)
 {
-	auto currentFrame = GetFrame();
-	float frameScaleX = rect.width / currentFrame.width;
-	float frameScaleY = rect.height / currentFrame.height;
+	auto oldFrame = GetFrame();
+
 	for (auto & shape : m_shapes)
 	{
 		auto shapeFrame = shape->GetFrame();
-		float shapeOffsetX = shapeFrame.left - rect.left;
-		float shapeOffsetY = shapeFrame.height - rect.height;
-		shape->SetFrame({
-			rect.left + shapeOffsetX * frameScaleX,
-			rect.top + shapeOffsetY * frameScaleY,
-			rect.width * frameScaleX,
-			rect.height * frameScaleY
-		});
+		shape->SetFrame({ rect.left + (shapeFrame.left - oldFrame.left) / oldFrame.width * rect.width
+			, rect.top + (shapeFrame.top - oldFrame.top) / oldFrame.height * rect.height
+			, shapeFrame.width * rect.width / oldFrame.width
+			, shapeFrame.height * rect.height / oldFrame.height });
 	}
 }
 

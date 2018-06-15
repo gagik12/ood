@@ -33,6 +33,9 @@ std::shared_ptr<IShape> CreateHouse()
 	house->InsertShape(window, 2);
 	house->InsertShape(door, 2);
 
+	house->SetFrame(RectD{ 100, 200, 200, 500 });
+	//house->SetFrame(RectD{ 100, 200, 100, 100 });
+
 	return house;
 }
 
